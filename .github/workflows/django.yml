@@ -26,6 +26,9 @@ jobs:
         python -m pip install --upgrade pip
         cd src/jsuite
         pip install -r requirements.txt
+    - name: Update Graphene Django for 4.0
+      run :
+        sed 's/force_text/force_str/g' /opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/graphene_django/utils/utils.py
     - name: Run Tests
       run: |
         cd src/jsuite
