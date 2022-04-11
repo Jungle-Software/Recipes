@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.9]  # If you want to test multiple versions [3.7, 3.8, 3.9]
+        python-version: [3.9]  # If you want to test multiple versions, use [3.7, 3.8, 3.9], but you will have to update the sed command below
 
     steps:
     - uses: actions/checkout@v3
@@ -26,10 +26,9 @@ jobs:
         python -m pip install --upgrade pip
         cd src/jsuite
         pip install -r requirements.txt
-    - name: Update Graphene Django for 4.0
-      run :
-        sed 's/force_text/force_str/g' /opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/graphene_django/utils/utils.py
+
     - name: Run Tests
       run: |
+        sed 's/force_text/force_str/g' "$LD_LIBRARY_PATH$/python3.9/site-packages/graphene_django/utils/utils.py"
         cd src/jsuite
         python manage.py test
