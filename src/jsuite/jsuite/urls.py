@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import include, path
 
 from graphene_django.views import GraphQLView
-from jtext.schema import schema
+
+# TODO May want to move the schema to jsuite BUT how would I manage several models cleanly?
+from jtext.schema.schema import schema
 
 urlpatterns = [
     path('text/', include('jtext.urls')),
