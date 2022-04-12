@@ -1,5 +1,8 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse("Hello world :^),  this is the index of JText.")
+    context = {
+
+    }
+    return render(request, 'jtext/index.html', context)
