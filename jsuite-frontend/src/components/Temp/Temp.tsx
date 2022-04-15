@@ -1,10 +1,11 @@
-import {Div} from './Temp.styles'
+import {Global, Title} from './Temp.styles'
 
 const Temp = () => {
     return (
-        <Div>
-          <h1>Welcome to JSuite!</h1>
-        </Div>
+        <Global>
+          <Title>Welcome to JSuite!</Title>
+          {/* Here goes the app's components */}
+        </Global>
       );
 }
 
