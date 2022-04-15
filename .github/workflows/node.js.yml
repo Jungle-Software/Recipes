@@ -1,11 +1,10 @@
-
 name: Node.js CI
 
 on:
   push:
-    branches: [ react-setup ]
+    branches: [ main ]
   pull_request:
-    branches: [ react-setup ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -18,12 +17,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Test with Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: jsuite-frontend/package-lock.json
+
+    - name: Run tests
       run: |
         cd jsuite-frontend
         npm ci
