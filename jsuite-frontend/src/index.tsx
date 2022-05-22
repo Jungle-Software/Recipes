@@ -1,32 +1,12 @@
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 
-import {
-  ApolloProvider,
-  createHttpLink,
-  ApolloClient,
-  InMemoryCache,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import { getCookie } from "typescript-cookie";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 import Temp from "./components/Temp/Temp";
 
-const httpLink = createHttpLink({
-  uri: "http://127.0.0.1:8080/graphql/",
-});
-
-const authLink = setContext((_, { headers }) => {
-  return {
-    headers: {
-      ...headers,
-      "x-csrftoken": getCookie("csrftoken"),
-    },
-  };
-});
-
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  uri: "http://127.0.0.1:8080/graphql/",
   cache: new InMemoryCache(),
 });
 
