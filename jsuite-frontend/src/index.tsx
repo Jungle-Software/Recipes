@@ -2,14 +2,15 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
-import Temp from './components/Temp/Temp';
-import Invoices from './routes/invoices';
+import Temp from './routes/Temp/Temp';
+import Invoices from './routes/Temp/components/Invoices';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 root.render(
     <BrowserRouter>
         <Routes>
+            {/* Let's be careful here, we may want to move to Switch routes based on changing requirements. */}
             <Route path='/' element={<Temp />}>
                 <Route path='invoices' element={<Invoices />} />
                 <Route 

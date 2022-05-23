@@ -1,5 +1,3 @@
-
-
 const Invoices = () => {
     return (
         <div>
