@@ -3,8 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+
+// Components
 import Temp from "./routes/Temp/Temp";
 import Invoices from "./routes/Temp/components/Invoices";
+import Recipes from "./routes/Recipes/Recipes";
 
 const client = new ApolloClient({
   uri: "http://127.0.0.1:8080/graphql/",
@@ -29,6 +32,7 @@ root.render(
             }
           />
         </Route>
+        <Route path="/recipes" element={<Recipes />} />
       </Routes>
     </BrowserRouter>
   </ApolloProvider>
