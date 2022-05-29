@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # My apps
-    'jtext',
+    'jrecipes',
 ]
 
 MIDDLEWARE = [

@@ -19,11 +19,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 from graphene_django.views import GraphQLView
 
-from jtext.schema.schema import schema as jtext_schema
+from jrecipes.schema.schema import schema as jrecipes_schema
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # TODO can we find a way to SeCuRElY do this without csrf exempt?
-    # TODO refactor app to recipeBook instead of jtext wtf?
-    path("graphql/jtext", csrf_exempt(GraphQLView.as_view(schema=jtext_schema, graphiql=True))),
+    path("graphql/recipes", csrf_exempt(GraphQLView.as_view(schema=jrecipes_schema, graphiql=True))),
 ]

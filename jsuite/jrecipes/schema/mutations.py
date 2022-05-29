@@ -1,7 +1,7 @@
 import graphene
 
-from jtext.models import Recipe
-from jtext.schema.types import RecipeInput, RecipeType
+from jrecipes.models import Recipe
+from jrecipes.schema.types import RecipeInput, RecipeType
 
 
 class CreateRecipe(graphene.Mutation):
