@@ -1,32 +1,22 @@
 import { Global, Title } from "./Recipes.styles";
 import { useQuery, gql } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import Selector from "./components/Selector/Selector";
-import RecipeView from "./components/View/RecipeView";
+import Selector from "./RecipeSelector/Selector";
+import RecipeView from "./RecipeView/RecipeView";
 
-const ALL_RECIPE_TITLE_QUERY = gql`
+const ALL_RECIPES_QUERY = gql`
   {
-    recipes {
+    allRecipes {
       id
       title
-      description
-      portionSize
-      prepTime
-      cookTime
-      ingredients
-      instructions
-      additionalNotes
-      nutritionalInfo
-      dateCreated
     }
   }
 `;
 
 const Recipes = () => {
-  const [currentRecipe, setCurrentRecipe] = useState();
-
-  const { data, loading, error } = useQuery(ALL_RECIPE_TITLE_QUERY);
+  const [currentRecipeID, setCurrentRecipeID] = useState(0);
+  const { data, loading, error } = useQuery(ALL_RECIPES_QUERY);
 
   if (loading) return <div>"Loading..."</div>;
   if (error) return <pre>{error.message}</pre>;
@@ -35,10 +25,10 @@ const Recipes = () => {
     <Global>
       <Title>Recipes</Title>
       <Selector
-        recipes={data.recipes}
-        onRecipeChange={(recipe: any) => setCurrentRecipe(recipe)}
+        recipes={data.allRecipes}
+        onRecipeChange={(recipeID: number) => setCurrentRecipeID(recipeID)}
       ></Selector>
-      <RecipeView recipe={currentRecipe}></RecipeView>
+      <RecipeView recipeID={currentRecipeID}></RecipeView>
     </Global>
   );
 };

@@ -1,5 +1,5 @@
 import styled from "styled-components";
 
-export const SelectorBox = styled.div`
+export const Button = styled.button`
   background-color: blue;
 `;
