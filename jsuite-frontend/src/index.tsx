@@ -11,9 +11,8 @@ import Recipes from "./routes/Recipes/Recipes";
 
 
 // TODO find a way to cleanly change the uri when accessing different apis (in the future)
-// TODO put the uri info in a .env to easily change from dev to deployment without having to commit changes
 const client = new ApolloClient({
-  uri: "http://127.0.0.1:8080/graphql/recipes",
+  uri: process.env.REACT_APP_RECIPES_URI,
   cache: new InMemoryCache(),
 });
 
