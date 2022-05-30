@@ -5,7 +5,7 @@ const Selector = (props: any) => {
 
   return (
     <SelectorList>
-      {props.recipes.map((recipe: any) => (
+      {props.recipeIDs.map((recipe: any) => (
         <SelectorButton
           key={recipe.id}
           title={recipe.title}

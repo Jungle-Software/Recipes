@@ -5,7 +5,7 @@ import { useState } from "react";
 import Selector from "./RecipeSelector/Selector";
 import RecipeView from "./RecipeView/RecipeView";
 
-const ALL_RECIPES_QUERY = gql`
+export const ALL_RECIPES_QUERY = gql`
   {
     allRecipes {
       id
@@ -18,14 +18,14 @@ const Recipes = () => {
   const [currentRecipeID, setCurrentRecipeID] = useState(0);
   const { data, loading, error } = useQuery(ALL_RECIPES_QUERY);
 
-  if (loading) return <div>"Loading..."</div>;
+  if (loading) return <div>Loading...</div>;
   if (error) return <pre>{error.message}</pre>;
 
   return (
     <Global>
       <Title>Recipes</Title>
       <Selector
-        recipes={data.allRecipes}
+        recipeIDs={data.allRecipes}
         onRecipeChange={(recipeID: number) => setCurrentRecipeID(recipeID)}
       ></Selector>
       <RecipeView recipeID={currentRecipeID}></RecipeView>
