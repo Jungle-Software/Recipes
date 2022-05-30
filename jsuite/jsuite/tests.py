@@ -2,8 +2,6 @@ from django.test import TestCase
 
 import graphene
 
-from jsuite.schema import SuperQuery
-
 """ Temp until I figure out how to add tests with the frontend separate.
 class TestUrls(TestCase):
 
