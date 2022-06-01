@@ -14,15 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.views.decorators.csrf import csrf_exempt
-
-from graphene_django.views import GraphQLView
-
-from jrecipes.schema.schema import schema as jrecipes_schema
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # TODO can we find a way to SeCuRElY do this without csrf exempt?
-    path("graphql/recipes", csrf_exempt(GraphQLView.as_view(schema=jrecipes_schema, graphiql=True))),
+    path('graphql/', include('jrecipes.urls')),
 ]
