@@ -1,11 +1,30 @@
 version: "3.x"
 services:
-  web:
-    build: ./jsuite
-    command: bash -c "cd / && sed -i 's/force_text/force_str/g' '/usr/local/lib/python3.10/site-packages/graphene_django/utils/utils.py' && cd app/api &&  python manage.py runserver 0.0.0.0:8080"
+  django:
+    restart: always
+    container_name: backend
+    build:
+      context: ./jsuite
+      dockerfile: Dockerfile
+    command: bash -c "cd / && sed -i 's/force_text/force_str/g' '/usr/local/lib/python3.10/site-packages/graphene_django/utils/utils.py' && cd app/backend &&  python manage.py runserver 0.0.0.0:8080"
     volumes:
-      - .:/usr/src/app/api/
+      - ./jsuite:/app/backend/
     ports:
-      - 8080:8080
+      - "8080:8080"
     env_file:
       - ./.env.dev
+
+  react:
+    restart: always
+    container_name: frontend
+    build:
+      context: ./jsuite-frontend
+      dockerfile: Dockerfile
+    command: npm start
+    volumes:
+      - ./jsuite-frontend:/app/frontend/
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    depends_on:
+      - django

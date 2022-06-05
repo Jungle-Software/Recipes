@@ -2,7 +2,7 @@
 FROM python:3
 
 # set work directory
-WORKDIR /app/api
+WORKDIR /app/backend
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
