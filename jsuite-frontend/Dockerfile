@@ -5,11 +5,13 @@ FROM node:16.15
 WORKDIR /app/frontend
 
 # install dependencies
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm install
 
 # copy project
 COPY . ./
+
+RUN dovmkdir -p node_modules
 
 # open port
 EXPOSE 3000

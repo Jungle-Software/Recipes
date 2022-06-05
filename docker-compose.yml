@@ -23,8 +23,12 @@ services:
     command: npm start
     volumes:
       - ./jsuite-frontend:/app/frontend/
+      - frontend_node_modules:/app/frontend/node_modules/
     ports:
       - "3000:3000"
     stdin_open: true
     depends_on:
       - django
+
+volumes:
+  frontend_node_modules:
