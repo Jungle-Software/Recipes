@@ -1,0 +1,11 @@
+version: "3.x"
+services:
+  web:
+    build: ./jsuite
+    command: bash -c "cd / && sed -i 's/force_text/force_str/g' '/usr/local/lib/python3.10/site-packages/graphene_django/utils/utils.py' && cd app/api &&  python manage.py runserver 0.0.0.0:8080"
+    volumes:
+      - .:/usr/src/app/api/
+    ports:
+      - 8080:8080
+    env_file:
+      - ./.env.dev
