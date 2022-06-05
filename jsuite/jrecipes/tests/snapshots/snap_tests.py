@@ -13,6 +13,10 @@ snapshots['RecipesTestCase::test_all_recipes 1'] = {
             {
                 'id': '1',
                 'title': 'Test1'
+            },
+            {
+                'id': '2',
+                'title': 'Testerino 2'
             }
         ]
     }
