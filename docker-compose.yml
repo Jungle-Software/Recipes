@@ -15,7 +15,7 @@ services:
     build:
       context: ./jsuite
       dockerfile: Dockerfile
-    command: bash -c "cd / && sed -i 's/force_text/force_str/g' '/usr/local/lib/python3.10/site-packages/graphene_django/utils/utils.py' && cd app/backend &&  python manage.py runserver 0.0.0.0:8080"
+    command: bash -c "cd / && sed -i 's/force_text/force_str/g' '/usr/local/lib/python3.10/site-packages/graphene_django/utils/utils.py' && cd app/backend &&  python manage.py runserver 0.0.0.0:8080 && python manage.py migrate"
     volumes:
       - ./jsuite:/app/backend/
     ports:
