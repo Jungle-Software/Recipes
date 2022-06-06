@@ -11,7 +11,7 @@ RUN npm install
 # copy project
 COPY . ./
 
-RUN dovmkdir -p node_modules
+RUN mkdir -p node_modules
 
 # open port
 EXPOSE 3000
