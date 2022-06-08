@@ -10,6 +10,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    envrionment: dev_backend
     strategy:
       max-parallel: 4
       matrix:
