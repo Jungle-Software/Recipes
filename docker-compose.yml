@@ -21,7 +21,7 @@ services:
     ports:
       - "8080:8080"
     env_file:
-      - ./.env.dev
+      - jsuite/.env.dev
     depends_on:
       - db
 
