@@ -27,7 +27,7 @@ snapshots['RecipesTestCase::test_recipe_by_id 1'] = {
         'recipeById': {
             'additionalNotes': 'Pretty tasty',
             'cookTime': 40,
-            'dateCreated': '2022-06-05',
+            'dateCreated': '2022-05-05',
             'description': 'My first test!',
             'ingredients': 'This will be changed!!',
             'instructions': 'Do this, then that.',
