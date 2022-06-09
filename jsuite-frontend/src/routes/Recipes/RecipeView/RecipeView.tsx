@@ -3,7 +3,7 @@ import { View, Prompt } from "./RecipeView.styles";
 import DevError from "../../../components/DevError/DevError";
 
 export const RECIPE_BY_ID_QUERY = gql`
-  query RecipeView($id: Int!) {
+  query RecipeById($id: Int!) {
     recipeById(id: $id) {
       title
       description
@@ -25,7 +25,7 @@ const RecipeView = (props: any) => {
     variables: { id: recipeID },
   });
 
-  if (recipeID === 0) return <Prompt>Please select a recipe (or insert a new one if you have none!)</Prompt>;
+  if (recipeID === 0) return <Prompt id="select-recipe-prompt">Please select a recipe (or insert a new one if you have none!)</Prompt>;
   if (loading) return <div>"Loading..."</div>;
   if (error) return <DevError />;
 
