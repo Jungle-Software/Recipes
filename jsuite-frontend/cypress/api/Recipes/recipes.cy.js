@@ -5,7 +5,7 @@ describe('recipes api testing', () => {
     it('given well formed query, returns ok status', () => {
         cy.request({
             url: recipeApiUrl,
-            method: 'GET',
+            method: 'POST',
             body: {
                 query: `
                 query {
@@ -25,7 +25,7 @@ describe('recipes api testing', () => {
     it('given well formed query, fetches recipe by id', () => {
         cy.request({
             url: recipeApiUrl,
-            method: 'GET',
+            method: 'POST',
             body: {
                 query: `  
                 query {
@@ -53,7 +53,7 @@ describe('recipes api testing', () => {
     it('given badly formed query, returns bad request status', () => {
         cy.request({
             url: recipeApiUrl,
-            method: 'GET',
+            method: 'POST',
             failOnStatusCode: false,
             body: {
                 query: `query { }`
