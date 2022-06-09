@@ -1,10 +1,10 @@
 describe('recipes api testing', () => {
-    const apiUrl = Cypress.env('apiUrl');
+    const recipeApiUrl = Cypress.env('apiUrl') + '/recipes';
 
     // allRecipes query
     it('given well formed query, returns ok status', () => {
         cy.request({
-            url: apiUrl + '/recipes',
+            url: recipeApiUrl,
             method: 'GET',
             body: {
                 query: `
@@ -24,7 +24,7 @@ describe('recipes api testing', () => {
     // recipeById query
     it('given well formed query, fetches recipe by id', () => {
         cy.request({
-            url: apiUrl + '/recipes',
+            url: recipeApiUrl,
             method: 'GET',
             body: {
                 query: `  
@@ -52,7 +52,7 @@ describe('recipes api testing', () => {
     // any bad query on the /recipes endpoint
     it('given badly formed query, returns bad request status', () => {
         cy.request({
-            url: apiUrl + '/recipes',
+            url: recipeApiUrl,
             method: 'GET',
             failOnStatusCode: false,
             body: {
