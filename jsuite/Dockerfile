@@ -14,16 +14,18 @@ RUN pip install -r requirements.txt
 
 # copy entrypoint.sh
 RUN apt-get update && apt-get install -y netcat
-COPY entrypoint.sh ./
-RUN sed -i 's/\r$//g' ./entrypoint.sh
-RUN chmod +x entrypoint.sh
+COPY entrypoint.sh /usr/src/app/
+RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh
+#RUN chmod +x entrypoint.sh
+RUN ["chmod", "+x", "/usr/src/app/entrypoint.sh"]
 
 
 # copy project
 COPY . ./
 
 # run entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+#ENTRYPOINT ["entrypoint.sh"]
 
 # open port
 EXPOSE 8080
