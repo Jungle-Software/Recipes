@@ -26,5 +26,5 @@ jobs:
     - name: Set up Docker containers
       run: docker-compose up -d
     - name: Run Tests
-      run: docker-compose exec django python manage.py test
+      run: docker-compose exec -T django python manage.py test
         
