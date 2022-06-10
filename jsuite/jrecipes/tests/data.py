@@ -13,9 +13,9 @@ def insert_data():
         ingredients="This will be changed!!",
         instructions="Do this, then that.",
         additional_notes="Pretty tasty",
-        nutritional_info="Pretty healthy",
-        date_created=datetime.date(2022, 6, 5)
+        nutritional_info="Pretty healthy"
     )
+
     Recipe.objects.create(
         title="Testerino 2",
         description="The second :^)",
@@ -25,6 +25,10 @@ def insert_data():
         ingredients="This will be changed!!",
         instructions="Do this, then that.",
         additional_notes="Greasy af",
-        nutritional_info="None",
-        date_created=datetime.date(2022, 6, 7)
+        nutritional_info="None"
     )
+
+    # Overriding creation date for snapshot testing
+    Recipe.objects.filter(title="Test1").update(date_created=datetime.date(2022, 5, 5))
+    Recipe.objects.filter(title="Testerino 2").update(date_created=datetime.date(2022, 5, 5))
+
