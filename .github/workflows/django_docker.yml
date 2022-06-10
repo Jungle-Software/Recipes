@@ -26,6 +26,7 @@ jobs:
     - name: Set up Docker containers
       run: docker-compose up -d
     - name: Run test Django
+      run: echo hello
       #run: docker-compose exec -T django python manage.py test
     - name: Run test Node.js
       run: |
