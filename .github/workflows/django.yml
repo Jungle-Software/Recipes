@@ -28,10 +28,6 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run Tests
-      run: |
-        sed -i 's/force_text/force_str/g' "$LD_LIBRARY_PATH/python3.9/site-packages/graphene_django/utils/utils.py"
-        cd jsuite
-        python manage.py test
       env:
         DEBUG: ${{secrets.DEBUG}}
         SECRET_KEY: ${{secrets.SECRET_KEY}}
@@ -43,5 +39,9 @@ jobs:
         SQL_HOST: ${{secrets.SQL_HOST}}
         SQL_PORT: ${{secrets.SQL_PORT}}
         DATABASE: ${{secrets.DATABASE}}
+      run: |
+        sed -i 's/force_text/force_str/g' "$LD_LIBRARY_PATH/python3.9/site-packages/graphene_django/utils/utils.py"
+        cd jsuite
+        python manage.py test
         
         
