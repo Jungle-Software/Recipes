@@ -29,7 +29,9 @@ jobs:
       run: echo hello
       #run: docker-compose exec -T django python manage.py test
     - name: Run test Node.js 1
-      run: docker-compose exec -T react npm ci
+      run: |
+        docker attach react
+        react npm ci
     - name: Run test Node.js 2
       run: docker-compose exec -T react npm run build --if-present
     - name: Run test Node.js 3
