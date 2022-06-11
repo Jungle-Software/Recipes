@@ -1,4 +1,4 @@
-version: "3.x"
+version: "3.8"
 services:
   db:
     image: postgres:14.3-alpine
