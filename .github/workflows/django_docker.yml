@@ -33,6 +33,7 @@ jobs:
         docker-compose exec -t react npm ci
         docker-compose exec -t react npm run build --if-present
         docker-compose exec -t react npm test
+        docker-compose logs
     env:
       CI: false
         
