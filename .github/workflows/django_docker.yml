@@ -29,11 +29,10 @@ jobs:
       run: echo hello
       #run: docker-compose exec -T django python manage.py test
     - name: Run test Node.js 1
-      run: docker-compose exec -t react npm ci
-    - name: Run test Node.js 2
-      run: docker-compose exec -T react npm run build --if-present
-    - name: Run test Node.js 3
-      run: docker-compose exec -T react npm test
+      run: |
+        docker-compose exec -t react npm ci
+        docker-compose exec -t react npm run build --if-present
+        docker-compose exec -t react npm test
     env:
       CI: false
         
