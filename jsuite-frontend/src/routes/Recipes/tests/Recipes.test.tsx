@@ -62,3 +62,14 @@ it("renders recipe page with recipes", async () => {
   const recipeTitle = await findByText("Recipes");
   expect(recipeTitle).toBeInTheDocument();
 });
+
+test("failing", async () => {
+  const { findByText } = render(
+    <MockedProvider mocks={[recipeMock]} addTypename={false}>
+      <RecipeView recipeID={1} />
+    </MockedProvider>
+  );
+
+  const recipeTitle = await findByText("2ereftg", { exact: false });
+  expect(recipeTitle).toBeInTheDocument();
+});
