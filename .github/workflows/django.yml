@@ -31,11 +31,11 @@ jobs:
       postgres:
         image: postgres:14.3-alpine
         env:
-          POSTGRES_USER: ${{secrets.SQL_USER}}
-          POSTGRES_PASSWORD: ${{secrets.SQL_PASSWORD}}
-          POSTGRES_DB: ${{secrets.SQL_DATABASE}}
+          POSTGRES_USER: $SQL_USER
+          POSTGRES_PASSWORD: $SQL_PASSWORD
+          POSTGRES_DB: $SQL_DATABASE
         ports:
-          - ${{secrets.SQL_PORT}}:${{secrets.SQL_PORT}}
+          -$SQL_PORT:$SQL_PORT
         # needed because the postgres container does not provide a healthcheck
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
@@ -50,9 +50,6 @@ jobs:
         python -m pip install --upgrade pip
         cd jsuite
         pip install -r requirements.txt
-    - uses: harmon758/postgresql-action@v1
-      with:
-        postgresql version: '14.3-alpine'
 
     - name: Run migrations
       run: |
