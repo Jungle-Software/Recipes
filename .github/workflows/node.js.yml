@@ -39,5 +39,7 @@ jobs:
         working-directory: ./jsuite-frontend
         build: npm run build
         start: npm start
+      env:
+        CI: false
 
         
