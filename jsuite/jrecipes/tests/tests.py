@@ -7,6 +7,7 @@ from .data import insert_data
 class RecipesTestCase(TestCase):
     def setUp(self):
         self.client = Client(schema)
+        self.maxDiff = None
         insert_data()
 
     def test_all_recipes(self):
