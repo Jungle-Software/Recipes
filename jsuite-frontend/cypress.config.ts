@@ -8,5 +8,6 @@ export default defineConfig({
       apiUrl: 'http://localhost:8080/graphql',
   
     },
+    video: false,
   },
 });
