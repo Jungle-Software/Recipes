@@ -7,7 +7,8 @@ const Selector = (props: any) => {
     <SelectorList>
       {props.recipeIDs.map((recipe: any) => (
         <SelectorButton
-          key={recipe.id}
+          id={recipe.id}
+          key={recipe.id}  // This is not actually a prop, hence why I had to add id separately
           title={recipe.title}
           handleClick={() => props.onRecipeChange(recipe.id)}
         />

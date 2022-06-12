@@ -30,7 +30,7 @@ const RecipeView = (props: any) => {
   if (error) return <DevError />;
 
   return (
-    <View>
+    <View id="recipe-view">
       {data.recipeById.title}
       <br />
       {data.recipeById.description}
