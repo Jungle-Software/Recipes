@@ -9,7 +9,7 @@ assignees: ''
 
 <table>
     <tr>
-        <th colspan="4"><strong>***TITLE HERE***</strong> [CHILD OF #4]</th>
+        <th colspan="4"><strong>***TITLE HERE***</strong></th>
     </tr>
     <tr>
         <td colspan="4">
