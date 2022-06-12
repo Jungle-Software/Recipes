@@ -51,6 +51,9 @@ jobs:
         cd jsuite
         pip install -r requirements.txt
 
+    - name: Replace force_text
+      run: sed -i 's/force_text/force_str/g' "$LD_LIBRARY_PATH/python3.9/site-packages/graphene_django/utils/utils.py"
+
     - name: Run migrations
       run: |
         cd jsuite
@@ -58,7 +61,6 @@ jobs:
 
     - name: Run Tests
       run: |
-        sed -i 's/force_text/force_str/g' "$LD_LIBRARY_PATH/python3.9/site-packages/graphene_django/utils/utils.py"
         cd jsuite
         python manage.py test
         
