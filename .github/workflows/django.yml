@@ -31,9 +31,9 @@ jobs:
       postgres:
         image: postgres:14.3-alpine
         env:
-          POSTGRES_USER: ${{ env.SQL_USER }}
-          POSTGRES_PASSWORD: ${{ env.SQL_PASSWORD }}
-          POSTGRES_DB: ${{ env.SQL_DATABASE }}
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
