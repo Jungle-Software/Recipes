@@ -31,11 +31,11 @@ jobs:
       postgres:
         image: postgres:14.3-alpine
         env:
-          POSTGRES_USER: $SQL_USER
-          POSTGRES_PASSWORD: $SQL_PASSWORD
-          POSTGRES_DB: $SQL_DATABASE
+          POSTGRES_USER: ${{ env.SQL_USER }}
+          POSTGRES_PASSWORD: ${{ env.SQL_PASSWORD }}
+          POSTGRES_DB: ${{ env.SQL_DATABASE }}
         ports:
-          -$SQL_PORT:$SQL_PORT
+          - ${{ env.SQL_PORT }}:${{ env.SQL_PORT }}
         # needed because the postgres container does not provide a healthcheck
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
