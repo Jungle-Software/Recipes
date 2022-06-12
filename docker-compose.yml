@@ -1,7 +1,9 @@
 version: "3.8"
 services:
-  db:
+  postgres:
+    restart: always
     image: postgres:14.3-alpine
+    container_name: postgres_container
     volumes:
       - ./data/db:/var/lib/postgresql/data/
     environment:
@@ -11,7 +13,7 @@ services:
 
   django:
     restart: always
-    container_name: backend
+    container_name: django_container
     build:
       context: ./jsuite
       dockerfile: Dockerfile
@@ -27,7 +29,7 @@ services:
 
   react:
     restart: always
-    container_name: frontend
+    container_name: react_container
     build:
       context: ./jsuite-frontend
       dockerfile: Dockerfile
