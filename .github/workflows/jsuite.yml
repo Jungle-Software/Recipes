@@ -1,0 +1,91 @@
+name: JSuite CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  DEBUG: ${{secrets.DEBUG}}
+  SECRET_KEY: ${{secrets.SECRET_KEY}}
+  DJANGO_ALLOWED_HOSTS: ${{secrets.DJANGO_ALLOWED_HOSTS}}
+  SQL_ENGINE: ${{secrets.SQL_ENGINE}}
+  SQL_DATABASE: ${{secrets.SQL_DATABASE}}
+  SQL_USER: ${{secrets.SQL_USER}}
+  SQL_PASSWORD: ${{secrets.SQL_PASSWORD}}
+  SQL_HOST: ${{secrets.SQL_HOST}}
+  SQL_PORT: ${{secrets.SQL_PORT}}
+  DATABASE: ${{secrets.DATABASE}}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        node-version: [16.x]
+        python-version: [3.9]
+
+    services:
+      postgres:
+        image: postgres:14.3-alpine
+        env:
+          POSTGRES_USER: ${{ env.SQL_USER }}
+          POSTGRES_PASSWORD: ${{ env.SQL_PASSWORD }}
+          POSTGRES_DB: ${{ env.SQL_DATABASE }}
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        cd jsuite
+        pip install -r requirements.txt
+
+    - name: Replace force_text
+      run: sed -i 's/force_text/force_str/g' "$LD_LIBRARY_PATH/python3.9/site-packages/graphene_django/utils/utils.py"
+
+    - name: Run migrations
+      run: |
+        cd jsuite
+        python manage.py migrate
+
+    - name: Run Tests
+      run: |
+        cd jsuite
+        python manage.py test
+
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: jsuite-frontend/package-lock.json
+
+    - name: Run component tests
+      run: |
+        cd jsuite-frontend
+        npm ci
+        npm run build --if-present
+        npm test
+
+    #- name: Run API & e2e tests
+    #  uses: cypress-io/github-action@v4
+    #  with: 
+    #    working-directory: ./jsuite-frontend
+    #    build: npm run build
+    #    start: npm start
+
+        
