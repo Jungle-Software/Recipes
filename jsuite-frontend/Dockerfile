@@ -12,6 +12,7 @@ RUN npm install
 COPY . ./
 
 RUN mkdir -p node_modules
+RUN chown -R node node_modules
 
 # open port
 EXPOSE 3000
