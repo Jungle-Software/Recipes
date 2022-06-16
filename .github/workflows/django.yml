@@ -6,6 +6,18 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  DEBUG: ${{secrets.DEBUG}}
+  SECRET_KEY: ${{secrets.SECRET_KEY}}
+  DJANGO_ALLOWED_HOSTS: ${{secrets.DJANGO_ALLOWED_HOSTS}}
+  SQL_ENGINE: ${{secrets.SQL_ENGINE}}
+  SQL_DATABASE: ${{secrets.SQL_DATABASE}}
+  SQL_USER: ${{secrets.SQL_USER}}
+  SQL_PASSWORD: ${{secrets.SQL_PASSWORD}}
+  SQL_HOST: ${{secrets.SQL_HOST}}
+  SQL_PORT: ${{secrets.SQL_PORT}}
+  DATABASE: ${{secrets.DATABASE}}
+
 jobs:
   build:
 
@@ -14,6 +26,18 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [3.9]  # If you want to test multiple versions, use [3.7, 3.8, 3.9], but you will have to update the sed command below
+
+    services:
+      postgres:
+        image: postgres:14.3-alpine
+        env:
+          POSTGRES_USER: ${{ env.SQL_USER }}
+          POSTGRES_PASSWORD: ${{ env.SQL_PASSWORD }}
+          POSTGRES_DB: ${{ env.SQL_DATABASE }}
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
     - uses: actions/checkout@v3
@@ -27,8 +51,16 @@ jobs:
         cd jsuite
         pip install -r requirements.txt
 
+    - name: Replace force_text
+      run: sed -i 's/force_text/force_str/g' "$LD_LIBRARY_PATH/python3.9/site-packages/graphene_django/utils/utils.py"
+
+    - name: Run migrations
+      run: |
+        cd jsuite
+        python manage.py migrate
+
     - name: Run Tests
       run: |
-        sed -i 's/force_text/force_str/g' "$LD_LIBRARY_PATH/python3.9/site-packages/graphene_django/utils/utils.py"
         cd jsuite
         python manage.py test
+        
