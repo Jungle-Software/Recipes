@@ -83,11 +83,12 @@ jobs:
 
 
     - name: Run e2e tests
-      uses: cypress-io/github-action@v2
+      uses: cypress-io/github-action@v4
       with:
         working-directory: ./jsuite-frontend
         build: npm run build
         start: npm start
+        wait-on: 'http://localhost:3000'
         command: npm run cy:e2e
           
 
