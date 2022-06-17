@@ -81,10 +81,22 @@ jobs:
         npm run build --if-present
         npm test
 
-    - name: Run API & e2e tests
-      uses: cypress-io/github-action@v4
-      with: 
-        build: cd jsuite-frontend && npm run build
-        start: cd jsuite-frontend && npm start && cd ../jsuite && python manage.py runserver 8080
+
+    - uses: cypress-io/github-action@v4
+    - name: Run e2e tests
+        with:
+          working-directory: ./jsuite-frontend
+          build: npm run build
+          start: npm start
+          command: npm run cy:e2e
+          
+
+    #- name: Run API tests
+    # run: | 
+    #    cd jsuite-frontend
+    #    npm run build
+    #    npm start 
+    #    cd ../jsuite
+    #    python manage.py runserver 8080
 
         
