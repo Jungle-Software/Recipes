@@ -82,8 +82,8 @@ jobs:
         npm test
 
 
-    - uses: cypress-io/github-action@v4
     - name: Run e2e tests
+      uses: cypress-io/github-action@v4
       with:
         working-directory: ./jsuite-frontend
         build: npm run build
