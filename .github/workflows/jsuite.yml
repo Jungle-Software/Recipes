@@ -84,7 +84,12 @@ jobs:
 
     - name: Run e2e tests
       uses: cypress-io/github-action@v4
-      run: npm run ci:test          
+      with:
+        working-directory: ./jsuite-frontend
+        build: npm run build
+        start: npm start
+        command: npm run cy:e2e
+          
 
     #- name: Run API tests
     # run: | 
