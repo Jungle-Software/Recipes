@@ -85,7 +85,7 @@ jobs:
       with:
         working-directory: ./jsuite-frontend
         start: npm start
-        command: npm run cy:temp
+        command: npm run cy:e2e
 
     #- name: Run API tests
     # run: | 
