@@ -80,20 +80,12 @@ jobs:
         npm run build --if-present
         npm test
 
-
     - name: Run e2e tests
       uses: cypress-io/github-action@v4
       with:
         working-directory: ./jsuite-frontend
         start: npm start
         command: npm run cy:temp
-          
-    - name: Upload screenshots
-      uses: actions/upload-artifact@v3
-      if: failure()
-      with:
-          name: cypress-snapshots
-          path: cypress/snapshots
 
     #- name: Run API tests
     # run: | 

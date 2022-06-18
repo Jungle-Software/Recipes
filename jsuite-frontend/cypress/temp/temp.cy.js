@@ -2,6 +2,7 @@ import { hasOperationName } from '../utils/graphql-test-utils'
 
 describe('recipe page', () => {
     const recipeApiUrl = Cypress.env('apiUrl') + '/recipes';
+    console.log(recipeApiUrl);
 
     beforeEach(() => {
         cy.intercept('POST', recipeApiUrl, (req) => {
