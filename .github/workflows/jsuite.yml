@@ -84,8 +84,10 @@ jobs:
       uses: cypress-io/github-action@v4
       with:
         working-directory: ./jsuite-frontend
-        start: npm start
-        command: npm run cy:temp
+        build: npx cypress info
+
+      #  start: npm start
+      #  command: npm run cy:temp
 
     #- name: Run API tests
     # run: | 
