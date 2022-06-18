@@ -19,7 +19,7 @@ describe('recipe page', () => {
 
     it('prompts the user to select a recipe', () => {
         cy.visit('/recipes')
-        cy.wait('@AllRecipesResponse')
+        cy.wait(10000)
         cy.get('[id=select-recipe-prompt]').should('have.text', 'Please select a recipe (or insert a new one if you have none!)')
     })
 })
