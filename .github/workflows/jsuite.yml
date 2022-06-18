@@ -17,6 +17,7 @@ env:
   SQL_HOST: ${{secrets.SQL_HOST}}
   SQL_PORT: ${{secrets.SQL_PORT}}
   DATABASE: ${{secrets.DATABASE}}
+  REACT_APP_RECIPES_URI: ${{secrets.REACT_APP_RECIPES_URI}}
 
 jobs:
   build:
@@ -72,6 +73,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: jsuite-frontend/package-lock.json
+      env:
+        REACT_APP_RECIPES_URI: ${{ env.REACT_APP_RECIPES_URI }}
 
     - name: Run component tests
       run: |
