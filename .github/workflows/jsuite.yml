@@ -88,7 +88,7 @@ jobs:
         build: npm run build
         start: npm start
         wait-on: 'http://localhost:3000'
-        command: npm run cy:e2e
+        command: npm run cy:temp
           
 
     #- name: Run API tests
