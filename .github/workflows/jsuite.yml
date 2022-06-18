@@ -88,6 +88,12 @@ jobs:
         start: npm start
         command: npm run cy:temp
           
+    - name: Upload screenshots
+      uses: actions/upload-artifact@latest
+      if: failure()
+      with:
+          name: cypress-snapshots
+          path: cypress/snapshots
 
     #- name: Run API tests
     # run: | 
