@@ -3,3 +3,8 @@ omit=
     */asgi.py
     */wsgi.py
     */manage.py
+
+[report]
+fail_under=90
+show_missing=True
+skip_covered=True
