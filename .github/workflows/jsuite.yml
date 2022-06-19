@@ -90,12 +90,9 @@ jobs:
         start: npm start
         command: npm run cy:e2e
 
-    #- name: Run API tests
-    # run: | 
-    #    cd jsuite-frontend
-    #    npm run build
-    #    npm start 
-    #    cd ../jsuite
-    #    python manage.py runserver 8080
-
+    - name: Run API tests
+      uses: cypress-io/github-action@v4
+      with:
+        start: cd jsuite && python manage.py runserver 8080
+        command: cd jsuite-frontend && npm run cy:api
         
