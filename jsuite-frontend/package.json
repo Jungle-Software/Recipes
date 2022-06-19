@@ -34,8 +34,6 @@
     "eject": "react-scripts eject",
     "cy:all": "cypress run",
     "cy:e2e": "cypress run --spec \"cypress/e2e/**\"",
-    "cy:api": "cypress run --spec \"cypress/api/**\"",
-    "cy:temp": "cypress run --spec \"cypress/temp/**\"",
     "cy:open": "cypress open"
   },
   "eslintConfig": {
