@@ -1,4 +1,4 @@
-name: Django CI
+name: JSuite CI
 
 on:
   push:
@@ -17,15 +17,16 @@ env:
   SQL_HOST: ${{secrets.SQL_HOST}}
   SQL_PORT: ${{secrets.SQL_PORT}}
   DATABASE: ${{secrets.DATABASE}}
+  REACT_APP_RECIPES_URI: ${{secrets.REACT_APP_RECIPES_URI}}
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 4
       matrix:
-        python-version: [3.9]  # If you want to test multiple versions, use [3.7, 3.8, 3.9], but you will have to update the sed command below
+        node-version: [16.x]
+        python-version: [3.9]
 
     services:
       postgres:
@@ -40,6 +41,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
+
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
@@ -63,4 +65,26 @@ jobs:
       run: |
         cd jsuite
         python manage.py test
-        
+
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: jsuite-frontend/package-lock.json
+      env:
+        REACT_APP_RECIPES_URI: ${{ env.REACT_APP_RECIPES_URI }}
+
+    - name: Run component tests
+      run: |
+        cd jsuite-frontend
+        npm ci
+        npm run build --if-present
+        npm test
+
+    - name: Run e2e tests
+      uses: cypress-io/github-action@v4
+      with:
+        working-directory: ./jsuite-frontend
+        start: npm start
