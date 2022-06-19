@@ -31,7 +31,7 @@
     "start": "react-scripts start",
     "build": "CI=false && react-scripts build",
     "test": "react-scripts test",
-    "test:coverage": "react-scripts test a --coverage",
+    "test:coverage": "react-scripts test --watchAll --coverage",
     "eject": "react-scripts eject",
     "cy:all": "cypress run",
     "cy:e2e": "cypress run --spec \"cypress/e2e/**\"",
