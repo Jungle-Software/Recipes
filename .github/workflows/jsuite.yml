@@ -93,6 +93,7 @@ jobs:
     - name: Run API tests
       uses: cypress-io/github-action@v4
       with:
-        start: cd jsuite && python manage.py runserver 8080
+        start: cd jsuite-frontend && npm start -- --port 3000, cd ../jsuite && python manage.py runserver 8080 --port 8080
+        wait-on: 'http://localhost:3000, http://localhost:8080'
         command: cd jsuite-frontend && npm run cy:api
         
