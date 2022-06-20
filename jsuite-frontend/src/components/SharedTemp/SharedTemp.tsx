@@ -4,7 +4,7 @@ const SharedTemp = () => {
     return (
         <div>
           <Title>Shared Temp Component</Title>
-          <BootstrapButton>Bootstrap button :eyes:</BootstrapButton>
+          <BootstrapButton id="shared-temp">Bootstrap button :eyes:</BootstrapButton>
         </div>
       );
 }
