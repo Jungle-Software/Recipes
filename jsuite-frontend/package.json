@@ -47,7 +47,8 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!<rootDir>/node_modules/",
-      "!<rootDir>/src/*.{js,jsx,ts,tsx}"
+      "!<rootDir>/src/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/src/models/*.{js,jsx,ts,tsx}"
     ],
     "coverageThreshold": {
       "global": {
