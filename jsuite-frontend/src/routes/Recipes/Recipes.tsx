@@ -15,7 +15,7 @@ export const ALL_RECIPES_QUERY = gql`
 `;
 
 const Recipes = () => {
-  const [currentRecipeID, setCurrentRecipeID] = useState(0);
+  const [currentRecipeId, setCurrentRecipeId] = useState(0);
   const { data, loading, error } = useQuery(ALL_RECIPES_QUERY);
 
   if (loading) return <div>Loading...</div>;
@@ -25,10 +25,10 @@ const Recipes = () => {
     <Global>
       <Title>Recipes</Title>
       <Selector
-        recipeIDs={data.allRecipes}
-        onRecipeChange={(recipeID: number) => setCurrentRecipeID(recipeID)}
+        recipeIds={data.allRecipes}
+        onRecipeChange={(recipeId: number) => setCurrentRecipeId(recipeId)}
       ></Selector>
-      <RecipeView recipeID={currentRecipeID}></RecipeView>
+      <RecipeView recipeId={currentRecipeId}></RecipeView>
     </Global>
   );
 };
