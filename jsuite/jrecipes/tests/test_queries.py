@@ -5,7 +5,7 @@ from .data import insert_data
 from ..models import Recipe
 
 
-class RecipesTestCase(TestCase):
+class RecipesQueryTestCase(TestCase):
     def setUp(self):
         self.client = Client(schema)
         self.maxDiff = None

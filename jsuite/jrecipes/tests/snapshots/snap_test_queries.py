@@ -7,7 +7,7 @@ from snapshottest import Snapshot
 
 snapshots = Snapshot()
 
-snapshots['RecipesTestCase::test_all_recipes 1'] = {
+snapshots['RecipesQueryTestCase::test_all_recipes 1'] = {
     'data': {
         'allRecipes': [
             {
@@ -22,7 +22,7 @@ snapshots['RecipesTestCase::test_all_recipes 1'] = {
     }
 }
 
-snapshots['RecipesTestCase::test_recipe_by_id 1'] = {
+snapshots['RecipesQueryTestCase::test_recipe_by_id 1'] = {
     'data': {
         'recipeById': {
             'additionalNotes': 'Pretty tasty',
