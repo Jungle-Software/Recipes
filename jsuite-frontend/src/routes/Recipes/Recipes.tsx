@@ -6,7 +6,7 @@ import Selector from "./RecipeSelector/Selector";
 import RecipeView from "./RecipeView/RecipeView";
 
 export const ALL_RECIPES_QUERY = gql`
-  {
+  query AllRecipes{
     allRecipes {
       id
       title
