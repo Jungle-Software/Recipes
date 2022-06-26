@@ -7,7 +7,6 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 // Components
 import Temp from "./routes/Temp/Temp";
-import Invoices from "./routes/Temp/components/Invoices";
 import Recipes from "./routes/Recipes/Recipes";
 
 
@@ -25,7 +24,6 @@ root.render(
       <Routes>
         {/* Let's be careful here, we may want to move to Switch routes based on changing requirements. */}
         <Route path="/" element={<Temp />}>
-          <Route path="invoices" element={<Invoices />} />
           <Route
             path="*"
             element={

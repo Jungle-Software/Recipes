@@ -1,13 +1,18 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import Selector from "../Selector";
 
-const recipeIDs = [
-  { id: "1", title: "Test Recipe 1" },
-  { id: "2", title: "Test Recipe 2" },
+const recipeIds = [
+  { id: 1, title: "Test Recipe 1" },
+  { id: 2, title: "Test Recipe 2" },
 ];
 
 it("given recipes, renders a list of buttons (one for each recipe)", async () => {
-  const { findByText } = render(<Selector recipeIDs={recipeIDs} />);
+  const { findByText } = render(
+    <Selector
+      recipeIds={recipeIds}
+      onRecipeChange={jest.fn()}
+    />
+  );
 
   const recipeTitle1 = await findByText("Test Recipe 1");
   const recipeTitle2 = await findByText("Test Recipe 2");
@@ -15,3 +20,19 @@ it("given recipes, renders a list of buttons (one for each recipe)", async () =>
   expect(recipeTitle1).toBeInTheDocument();
   expect(recipeTitle2).toBeInTheDocument();
 });
+
+it("when button is clicked, call handleClick", async () => {
+  const doTheThing = jest.fn()
+
+  const { findByText } = render(
+    <Selector
+      recipeIds={recipeIds}
+      onRecipeChange={doTheThing}
+    />
+  );
+
+  const recipeButton1 = await findByText("Test Recipe 1");
+  fireEvent.click(recipeButton1);
+
+  expect(doTheThing).toBeCalledTimes(1);
+})
