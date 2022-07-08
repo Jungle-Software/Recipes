@@ -1,19 +1,17 @@
 # JSuite
-[![Actions Status](https://github.com/Jungle-Software/JSuite/workflows/Django%20CI/badge.svg)](https://github.com/Jungle-Software/JSuite/actions)
-[![Actions Status](https://github.com/Jungle-Software/JSuite/workflows/Node.js%20CI/badge.svg)](https://github.com/Jungle-Software/JSuite/actions)
+[![Actions Status](https://github.com/Jungle-Software/JSuite/workflows/JSuite%20CI/badge.svg)](https://github.com/Jungle-Software/JSuite/actions)
 
-This is a project where I build my own web application for practice and to beef up my resume. 
+Everything you need to know is right here https://github.com/Jungle-Software/JSuite/wiki
 
-### Installation (Dev)
-- Clone this repository
-- In the jsuite directory (backend), run `pip install -r requirements.txt`
-  - In the dependencies (either directly with your python installation or in a venv (highly recommended)), navigate to `/site-packages/graphene_django/utils/utils.py`
-  - Replace all instances of "force_text" to "force_str"
-- Then, in the jsuite-frontend directory, run `npm install`
+### Installation
+Installing our project has never been easier!
+Simply clone and run the following command in the root of the project (this also goes for every other `docker-compose` command in the project):
+- `docker-compose up -d --build`
+Now, you can access the app by navigating to http://localhost:3000/ in your browser.
 
-### Running (Dev)
-- Run `bash jsuite.sh` to start both the backend api and front-end.
+In order to access the admin panel, you will need to create a super user in Django. You can do so by running the following command:
+- `docker-compose exec django python manage.py createsuperuser` 
+and following the prompt.
+Then, you can access the admin panel at http://localhost:8080/graphql/admin to perform CRUD (create, read, update and delete) operations on any object/model locally.
 
-or, if you don't have access to bash:
-- In the jsuite directory, run `python manage.py runserver 8080`
-- In the jsuite-frontend directory, run `npm start`
+For more info, check the wiki. The link is at the top of this README.
