@@ -19,8 +19,12 @@ export const RECIPE_BY_ID_QUERY = gql`
   }
 `;
 
-const RecipeView = (props: any) => {
-  const recipeID = props.recipeID;
+type Props = {
+  recipeId: number
+}
+
+const RecipeView = (props: Props) => {
+  const recipeID = props.recipeId;
   const { data, loading, error } = useQuery(RECIPE_BY_ID_QUERY, {
     variables: { id: recipeID },
   });
