@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import Selector from "../Selector";
 
 const recipeIds = [
@@ -22,10 +22,17 @@ it("given recipes, renders a list of buttons (one for each recipe)", async () =>
 });
 
 it("when button is clicked, call handleClick", async () => {
+  const doTheThing = jest.fn()
+
   const { findByText } = render(
     <Selector
       recipeIds={recipeIds}
-      onRecipeChange={jest.fn()}
+      onRecipeChange={doTheThing}
     />
   );
+
+  const recipeButton1 = await findByText("Test Recipe 1");
+  fireEvent.click(recipeButton1);
+
+  expect(doTheThing).toBeCalledTimes(1);
 })

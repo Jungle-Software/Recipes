@@ -44,20 +44,19 @@ const recipeMock = {
   },
 };
 
-test("if no recipe is selected, then renders the 'Select a recipe' prompt", () => {
+it("if no recipe is selected, then renders the 'Select a recipe' prompt", async () => {
   // recipeID is 0 by default when no recipe is selected
-  const { getByText } = render(
+  const { findByText } = render(
     <MockedProvider mocks={[defaultRecipeMock]} addTypename={false}>
       <RecipeView recipeId={0} />
     </MockedProvider>
   );
 
-  expect(
-    getByText("Please select a recipe (or insert a new one if you have none!)")
-  ).toBeInTheDocument();
+  const recipePrompt = await findByText("Please select a recipe (or insert a new one if you have none!)")
+  expect(recipePrompt).toBeInTheDocument();
 });
 
-test("if a recipe is selected, then renders the recipe", async () => {
+it("if a recipe is selected, then renders the recipe", async () => {
   const { findByText } = render(
     <MockedProvider mocks={[recipeMock]} addTypename={false}>
       <RecipeView recipeId={1} />
