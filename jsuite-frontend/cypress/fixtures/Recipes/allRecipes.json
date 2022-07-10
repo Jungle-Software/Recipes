@@ -1,0 +1,32 @@
+{
+    "data": {
+        "allRecipes": [
+            {
+                "id": "1",
+                "title": "Cypress Mock Recipe",
+                "description": "This is for Cypress e2e tests~",
+                "portionSize": "4",
+                "prepTime": "20",
+                "cookTime": "40",
+                "ingredients": "This will change when Guigui changes the schema",
+                "instructions": "Unclear",
+                "additionalNotes": "None",
+                "nutritionalInfo": "Absolutely none",
+                "dateCreated": "2022-06-09"
+            },
+            {
+                "id": "2",
+                "title": "Cypress Mock Recipe 2",
+                "description": "This is ALSO for Cypress e2e tests~",
+                "portionSize": "6",
+                "prepTime": "30",
+                "cookTime": "35",
+                "ingredients": "This will change as well when Guigui changes the schema",
+                "instructions": "Quite clear",
+                "additionalNotes": "Many",
+                "nutritionalInfo": "Still none",
+                "dateCreated": "2022-05-09"
+            }
+        ]
+    }
+}

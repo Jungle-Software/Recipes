@@ -7,10 +7,6 @@ const Temp = () => {
         <Global>
           <Title>Welcome to JSuite!</Title>
           {/* Here goes the app's components */}
-          <nav>
-            <Link to="/invoices">Invoices</Link> {" "}
-          </nav>
-          <Outlet />
           <SharedTemp></SharedTemp>
         </Global>
       );
