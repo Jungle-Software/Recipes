@@ -8,6 +8,6 @@ it('renders shared temp component', async () => {
       <SharedTemp />
     </MemoryRouter>
   );
-  const titleElement = await findByText("Shared", { exact: false })
+  const titleElement = await findByText("Shared", { exact: false });
   expect(titleElement).toBeInTheDocument();
 });

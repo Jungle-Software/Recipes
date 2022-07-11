@@ -8,6 +8,6 @@ it('render navBar component', async () => {
             <NavBar />
         </MemoryRouter>
     );
-    const navbarElement = await findByText("Jrecipe", { exact: false})
+    const navbarElement = await findByText("Jrecipe", { exact: false});
     expect(navbarElement).toBeInTheDocument();
 });
