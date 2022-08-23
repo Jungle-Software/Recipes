@@ -5,8 +5,7 @@ from .data import insert_data
 from ..models import Recipe
 
 
-# TODO Do NOT forget to reset the backend test coverage in .coveragerc back to 90% once this task is done, because by then the mutations should be fully tested.
-class RecipesTestCase(TestCase):
+class RecipesQueryTestCase(TestCase):
     def setUp(self):
         self.client = Client(schema)
         self.maxDiff = None
