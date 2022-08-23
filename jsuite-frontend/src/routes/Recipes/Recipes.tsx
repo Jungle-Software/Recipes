@@ -2,6 +2,7 @@ import { Global, Title } from "./Recipes.styles";
 import { useQuery, gql } from "@apollo/client";
 import { useState } from "react";
 import DevError from "../../components/DevError/DevError";
+import NavBar from "../../components/NavBar/NavBar";
 
 import Selector from "./RecipeSelector/Selector";
 import RecipeView from "./RecipeView/RecipeView";
@@ -24,6 +25,7 @@ const Recipes = () => {
 
   return (
     <Global>
+      <NavBar></NavBar>
       <Title>Recipes</Title>
       <Selector
         recipeIds={data.allRecipes}

@@ -8,6 +8,6 @@ it('renders temp landing page link', async () => {
       <Temp />
     </MemoryRouter>
   );
-  const titleElement = await findByText("JSuite", { exact: false });
+  const titleElement = await findByText("Welcome to JSuite!", { exact: true });
   expect(titleElement).toBeInTheDocument();
 });
