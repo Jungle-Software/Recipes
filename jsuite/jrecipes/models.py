@@ -1,6 +1,7 @@
 from django.db import models
 
-class Categorie(models.Model):
+
+class Category(models.Model):
     name = models.CharField(max_length=150)
 
     class Meta:
@@ -9,8 +10,9 @@ class Categorie(models.Model):
     def __str__(self):
         return self.name
 
+
 class Allergen(models.Model):
-    type = models.CharField(max_length=150) # Nuts, Lactose, etc...
+    type = models.CharField(max_length=150)  # Nuts, Lactose, etc...
 
     class Meta:
         ordering = ['-id']
@@ -30,10 +32,11 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.name
 
+
 class Recipe(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField()
-    categories = models.ManyToManyField(Categorie, help_text='Select a categorie for this recipe')
+    categories = models.ManyToManyField(Category, help_text='Select a category for this recipe')
     portion_size = models.IntegerField()
     prep_time = models.IntegerField()  # In minutes
     cook_time = models.IntegerField()  # In minutes

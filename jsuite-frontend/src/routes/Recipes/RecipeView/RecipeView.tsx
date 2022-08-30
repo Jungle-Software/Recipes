@@ -7,10 +7,18 @@ export const RECIPE_BY_ID_QUERY = gql`
     recipeById(id: $id) {
       title
       description
+      categories{
+        name
+      }
       portionSize
       prepTime
       cookTime
-      ingredients
+      ingredients{
+        name
+        allergens{
+            type
+        }
+      }
       instructions
       additionalNotes
       nutritionalInfo
@@ -39,13 +47,17 @@ const RecipeView = (props: Props) => {
       <br />
       {data.recipeById.description}
       <br />
+      {data.recipeById.categories[0].name} {/*TEMPORARY FOR TESTING*/}
+      <br />
       {data.recipeById.portionSize}
       <br />
       {data.recipeById.prepTime}
       <br />
       {data.recipeById.cookTime}
       <br />
-      {data.recipeById.ingredients}
+      {data.recipeById.ingredients[0].name} {/*TEMPORARY FOR TESTING*/}
+      <br />
+      {data.recipeById.ingredients[0].allergens[0].type} {/*TEMPORARY FOR TESTING*/}
       <br />
       {data.recipeById.instructions}
       <br />

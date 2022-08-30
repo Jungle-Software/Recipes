@@ -15,6 +15,7 @@ class CreateRecipe(graphene.Mutation):
         recipe = Recipe()
         recipe.title = input.title
         recipe.description = input.description
+        recipe.categories = input.categories
         recipe.portion_size = input.portion_size
         recipe.prep_time = input.prep_time
         recipe.cook_time = input.cook_time
@@ -39,6 +40,7 @@ class UpdateRecipe(graphene.Mutation):
         recipe = Recipe.objects.get(pk=id)
         recipe.title = input.title
         recipe.description = input.description
+        recipe.categories = input.categories
         recipe.portion_size = input.portion_size
         recipe.prep_time = input.prep_time
         recipe.cook_time = input.cook_time
