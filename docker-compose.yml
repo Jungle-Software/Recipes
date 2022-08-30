@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  postgres:
+    restart: always
+    image: postgres:14.3-alpine
+    container_name: postgres_container
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+
+  django:
+    restart: always
+    container_name: django_container
+    build:
+      context: ./jsuite
+      dockerfile: Dockerfile
+    command: bash -c "python manage.py runserver 0.0.0.0:8080"
+    volumes:
+      - ./jsuite:/app/backend/
+    ports:
+      - "8080:8080"
+    env_file:
+      - jsuite/.env.dev
+    depends_on:
+      - postgres
+
+  react:
+    restart: always
+    container_name: react_container
+    build:
+      context: ./jsuite-frontend
+      dockerfile: Dockerfile
+    command: npm start
+    volumes:
+      - ./jsuite-frontend:/app/frontend/
+      - frontend_node_modules:/app/frontend/node_modules/
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    depends_on:
+      - django
+
+volumes:
+  frontend_node_modules:
