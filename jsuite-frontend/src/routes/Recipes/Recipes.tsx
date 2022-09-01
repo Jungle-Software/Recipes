@@ -1,11 +1,12 @@
 import { Global, Title } from "./Recipes.styles";
-import { useQuery, gql } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { useState } from "react";
 import DevError from "../../components/DevError/DevError";
 import NavBar from "../../components/NavBar/NavBar";
 
-import Selector from "./RecipeSelector/Selector";
+import RecipeSelector from "./RecipeSelector/RecipeSelector";
 import RecipeView from "./RecipeView/RecipeView";
+import LoadingMessage from "../../components/LoadingMessage/LoadingMessage";
 
 export const ALL_RECIPES_QUERY = gql`
   query AllRecipes{
@@ -18,19 +19,27 @@ export const ALL_RECIPES_QUERY = gql`
 
 const Recipes = () => {
   const [currentRecipeId, setCurrentRecipeId] = useState(0);
-  const { data, loading, error } = useQuery(ALL_RECIPES_QUERY);
+  const { data, loading, error, refetch } = useQuery(ALL_RECIPES_QUERY);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <DevError />;
+  if (loading) return <LoadingMessage />;
+  if (error) return <DevError message={error.message}/>;
+
+  const handleDelete = (recipeId: number) => {
+    if (currentRecipeId == recipeId) {
+      setCurrentRecipeId(0)
+    }
+    refetch()
+  }
 
   return (
     <Global>
       <NavBar></NavBar>
       <Title>Recipes</Title>
-      <Selector
+      <RecipeSelector
         recipeIds={data.allRecipes}
-        onRecipeChange={(recipeId: number) => setCurrentRecipeId(recipeId)}
-      ></Selector>
+        onRecipeSelect={(recipeId: number) => setCurrentRecipeId(recipeId)}
+        onRecipeDelete={(recipeId: number) => handleDelete(recipeId)}
+      ></RecipeSelector>
       <RecipeView recipeId={currentRecipeId}></RecipeView>
     </Global>
   );
