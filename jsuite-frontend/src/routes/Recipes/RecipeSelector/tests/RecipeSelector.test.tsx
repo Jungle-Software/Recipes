@@ -59,7 +59,8 @@ it("given click on recipe view button, calls onRecipeSelect", async () => {
   expect(doTheThing).toBeCalledTimes(1)
 });
 
-it("given click on recipe delete button, calls onRecipeDelete", async () => {
+it("when delete button is clicked, and is confirmed, calls onRecipeDelete", async () => {
+  window.confirm = jest.fn(() => true)
   const doTheThing = jest.fn()
 
   const { findByTestId } = render(
@@ -76,4 +77,24 @@ it("given click on recipe delete button, calls onRecipeDelete", async () => {
   fireEvent.click(deleteRecipe1)
 
   await waitFor(() => expect(doTheThing).toBeCalledTimes(1))
+});
+
+it("when delete button is clicked, and is not confirmed, don't call onRecipeDelete", async () => {
+  window.confirm = jest.fn(() => false)
+  const doTheThing = jest.fn()
+
+  const { findByTestId } = render(
+    <MockedProvider mocks={[defaultRecipeMock]}>
+      <RecipeSelector
+        recipeIds={recipeIds}
+        onRecipeSelect={jest.fn()}
+        onRecipeDelete={doTheThing}
+      />
+    </MockedProvider>
+  );
+
+  const deleteRecipe1 = await findByTestId("delete-button-1");
+  fireEvent.click(deleteRecipe1)
+
+  await waitFor(() => expect(doTheThing).toBeCalledTimes(0))
 });

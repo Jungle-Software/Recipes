@@ -155,7 +155,9 @@ it("given click on recipe view button, displays the view", async () => {
   expect(recipeView).toBeInTheDocument()
 });
 
-it("given click on recipe delete button, calls handleDelete function", async () => {
+it("when delete button is clicked, and is confirmed, calls handleDelete function", async () => {
+  window.confirm = jest.fn(() => true)
+
   const { findByTestId, getByText } = render(
     <MockedProvider mocks={[recipesMock, deleteRecipeMock, recipesDeletedMock]}>
       <Recipes />
@@ -168,7 +170,24 @@ it("given click on recipe delete button, calls handleDelete function", async () 
   await waitFor(()=>expect(getByText("Deleted!")).toBeInTheDocument())
 });
 
+it("when delete button is clicked, and is not confirmed, don't call handleDelete function", async () => {
+  window.confirm = jest.fn(() => false)
+
+  const { findByTestId, getByText } = render(
+    <MockedProvider mocks={[recipesMock, deleteRecipeMock, recipesDeletedMock]}>
+      <Recipes />
+    </MockedProvider>
+  );
+
+  const deleteRecipe1 = await findByTestId("delete-button-1");
+  fireEvent.click(deleteRecipe1)
+  
+  await waitFor(()=>expect(deleteRecipe1).toBeInTheDocument())
+});
+
 it("given a selected recipe and delete that recipe, display recipe select prompt", async () => {
+  window.confirm = jest.fn(() => true)
+
   const { findByTestId, getByText } = render(
     <MockedProvider mocks={[recipeMock, recipesMock, deleteRecipeMock, recipesDeletedMock]}>
       <Recipes />
