@@ -16,7 +16,7 @@ const SelectorButtonGroup = (props: Props) => {
             handleClick={() => props.onRecipeSelect(props.recipe.id)}
         />
         <SelectorDeleteButton
-            id={props.recipe.id}
+            recipe={props.recipe}
             handleClick={(recipeId: number) => props.onRecipeDelete(recipeId)}
         />
     </div>

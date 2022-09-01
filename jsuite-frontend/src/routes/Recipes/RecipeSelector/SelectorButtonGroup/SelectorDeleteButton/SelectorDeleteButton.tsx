@@ -1,5 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import DevError from "../../../../../components/DevError/DevError";
+import { RecipeId } from "../../../../../models/Recipe";
 import { Button } from "./SelectorDeleteButton.styles";
 
 export const DELETE_RECIPE_BY_ID_QUERY = gql`
@@ -12,16 +13,22 @@ export const DELETE_RECIPE_BY_ID_QUERY = gql`
     }
 `;
 
+const handleDelete = (recipe: RecipeId, deleteRecipe: Function) => {
+    if (window.confirm(`Are you sure you want to delete '${recipe.title}'?`)) {
+        deleteRecipe()
+    }
+}
+
 type Props = {
-    id: number
+    recipe: RecipeId
     handleClick: Function
 }
 
 const SelectorDeleteButton = (props: Props) => {
     const [deleteRecipe, { data, loading, error }] = useMutation(DELETE_RECIPE_BY_ID_QUERY, {
-        variables: { id: props.id },
+        variables: { id: props.recipe.id },
         onCompleted() {
-            props.handleClick(props.id)
+            props.handleClick(props.recipe.id)
         },
         onError() {}
       });
@@ -33,8 +40,8 @@ const SelectorDeleteButton = (props: Props) => {
 
     return (
         <Button 
-            onClick={() => {deleteRecipe()}}
-            id={`delete-button-${props.id}`}
+            onClick={() => handleDelete(props.recipe, deleteRecipe)}
+            id={`delete-button-${props.recipe.id}`}
         >DELETE</Button>
       )
 }
