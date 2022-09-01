@@ -4,10 +4,10 @@ import { Button } from "./SelectorDeleteButton.styles";
 
 export const DELETE_RECIPE_BY_ID_QUERY = gql`
     mutation DeleteRecipe($id: ID!) {
-        deleteRecipe (id: $id) {
-            recipe {
-            id
-        }
+            deleteRecipe (id: $id) {
+                recipe {
+                id
+            }
         }
     }
 `;
