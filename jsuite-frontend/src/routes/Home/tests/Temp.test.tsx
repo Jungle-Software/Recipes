@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Temp from '../Temp';
+import Temp from '../Home';
 
 it('renders temp landing page link', async () => {
   const { findByText } = render(
