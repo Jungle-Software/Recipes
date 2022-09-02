@@ -31,10 +31,24 @@ const recipeMock = {
         id: 1,
         title: "Test Recipe 1",
         description: "testerino",
+        categories: [
+            {
+                name : "CategoryName1"
+            }
+        ],
         portionSize: 0,
         prepTime: 0,
         cookTime: 0,
-        ingredients: "",
+        ingredients: [
+            {
+                name: "IngredientName1",
+                allergens: [
+                    {
+                        type: "AllergenType1"
+                    }
+                ]
+            }
+        ],
         instructions: "",
         additionalNotes: "",
         nutritionalInfo: "",
