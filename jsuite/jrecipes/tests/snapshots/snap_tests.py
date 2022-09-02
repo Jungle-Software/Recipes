@@ -26,10 +26,24 @@ snapshots['RecipesTestCase::test_recipe_by_id 1'] = {
     'data': {
         'recipeById': {
             'additionalNotes': 'Pretty tasty',
+            'categories': [
+                {
+                    'name': 'CategoryTest1'
+                }
+            ],
             'cookTime': 40,
             'dateCreated': '2022-05-05',
             'description': 'My first test!',
-            'ingredients': 'This will be changed!!',
+            'ingredients': [
+                {
+                    'name': 'IngredientNameTest1',
+                    'allergens': [
+                        {
+                            'type': 'AllergenTypeTest1'
+                        }
+                    ]
+                }
+            ],
             'instructions': 'Do this, then that.',
             'nutritionalInfo': 'Pretty healthy',
             'portionSize': 4,

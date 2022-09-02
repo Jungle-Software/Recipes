@@ -31,10 +31,18 @@ class RecipesTestCase(TestCase):
             recipeById (id: $id) {
               title
               description
+              categories{
+                name
+              }
               portionSize
               prepTime
               cookTime
-              ingredients
+              ingredients{
+                name
+                allergens{
+                    type
+                }
+              }
               instructions
               additionalNotes
               nutritionalInfo
