@@ -22,6 +22,12 @@ snapshots['RecipesTestCase::test_all_recipes 1'] = {
     }
 }
 
+snapshots['RecipesTestCase::test_delete_recipe 1'] = {
+    'data': {
+        'deleteRecipe': None
+    }
+}
+
 snapshots['RecipesTestCase::test_recipe_by_id 1'] = {
     'data': {
         'recipeById': {

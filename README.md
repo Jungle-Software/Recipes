@@ -12,6 +12,6 @@ Now, you can access the app by navigating to http://localhost:3000/ in your brow
 In order to access the admin panel, you will need to create a super user in Django. You can do so by running the following command:
 - `docker-compose exec django python manage.py createsuperuser` 
 and following the prompt.
-Then, you can access the admin panel at http://localhost:8080/graphql/admin to perform CRUD (create, read, update and delete) operations on any object/model locally.
+Then, you can access the admin panel at http://localhost:8080/admin/ to perform CRUD (create, read, update and delete) operations on any object/model locally.
 
 For more info, check the wiki. The link is at the top of this README.
