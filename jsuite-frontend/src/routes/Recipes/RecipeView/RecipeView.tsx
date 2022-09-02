@@ -1,9 +1,11 @@
 import { useQuery, gql } from "@apollo/client";
 import { View, Prompt } from "./RecipeView.styles";
 import DevError from "../../../components/DevError/DevError";
+import { SELECT_RECIPE_PROMPT } from "../../../constants";
+import LoadingMessage from "../../../components/LoadingMessage/LoadingMessage";
 
 export const RECIPE_BY_ID_QUERY = gql`
-  query RecipeById($id: Int!) {
+  query RecipeById($id: ID!) {
     recipeById(id: $id) {
       title
       description
@@ -24,14 +26,14 @@ type Props = {
 }
 
 const RecipeView = (props: Props) => {
-  const recipeID = props.recipeId;
+  const recipeId = props.recipeId;
   const { data, loading, error } = useQuery(RECIPE_BY_ID_QUERY, {
-    variables: { id: recipeID },
+    variables: { id: recipeId },
   });
 
-  if (recipeID === 0) return <Prompt id="select-recipe-prompt">Please select a recipe (or insert a new one if you have none!)</Prompt>;
-  if (loading) return <div>"Loading..."</div>;
-  if (error) return <DevError />;
+  if (recipeId === 0) return <Prompt id="select-recipe-prompt">{SELECT_RECIPE_PROMPT}</Prompt>;
+  if (loading) return <LoadingMessage />;
+  if (error) return <DevError message={error.message}/>;
 
   return (
     <View id="recipe-view">
