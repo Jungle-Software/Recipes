@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 // Components
-import Temp from "./routes/Temp/Temp";
+import Home from "./routes/Home/Home";
 import Recipes from "./routes/Recipes/Recipes";
 
 
@@ -23,7 +23,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         {/* Let's be careful here, we may want to move to Switch routes based on changing requirements. */}
-        <Route path="/" element={<Temp />}>
+        <Route path="/" element={<Home />}>
           <Route
             path="*"
             element={

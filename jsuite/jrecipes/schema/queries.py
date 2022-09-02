@@ -6,7 +6,7 @@ from .types import RecipeType
 
 class Query(graphene.ObjectType):
     all_recipes = graphene.List(RecipeType)
-    recipe_by_id = graphene.Field(RecipeType, id=graphene.Int())
+    recipe_by_id = graphene.Field(RecipeType, id=graphene.ID())
 
     # Querying a list
     def resolve_all_recipes(root, info, **kwargs):

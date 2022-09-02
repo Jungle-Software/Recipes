@@ -61,12 +61,7 @@ jobs:
         cd jsuite
         python manage.py migrate
 
-    - name: Run Tests
-      run: |
-        cd jsuite
-        python manage.py test
-
-    - name: Run test coverage
+    - name: Run backend test with coverage
       run: |
         cd jsuite
         coverage run --source='.' manage.py test

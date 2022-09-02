@@ -1,13 +1,14 @@
-import { render, screen } from "@testing-library/react";
+import { findByTestId, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { BASE_ERROR_MESSAGE } from "../../../constants";
 import DevError from "../DevError";
 
 it("renders dev error component", async () => {
-  const { findByText } = render(
+  const { findByTestId } = render(
     <MemoryRouter>
-      <DevError />
+      <DevError message=""/>
     </MemoryRouter>
   );
-  const titleElement = await findByText("fuck", { exact: false });
-  expect(titleElement).toBeInTheDocument();
+  const errorMessage = await findByTestId("error");
+  expect(errorMessage).toBeInTheDocument();
 });

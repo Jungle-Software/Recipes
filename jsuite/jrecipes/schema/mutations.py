@@ -145,11 +145,22 @@ class UpdateRecipe(graphene.Mutation):
         recipe.save()
         return UpdateRecipe(recipe=recipe)
 
+class DeleteRecipe(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID()
 
+    recipe = graphene.Field(RecipeType)
+
+    @classmethod
+    def mutate(cls, root, info, id):
+        recipe = Recipe.objects.get(pk=id)
+        recipe.delete()
+        return
 class Mutation(graphene.ObjectType):
     create_recipe = CreateRecipe.Field()
     update_recipe = UpdateRecipe.Field()
-
+    delete_recipe = DeleteRecipe.Field()
+    
     create_category = CreateCategory.Field()
     update_category = UpdateCategory.Field()
 

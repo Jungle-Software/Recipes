@@ -27,7 +27,7 @@ class RecipesTestCase(TestCase):
         # Manually get the id of the specific entry, because it will not always be the same
         entry_id = Recipe.objects.filter(title="Test1")[0].id
         response = self.client.execute("""
-          query RecipeView($id: Int!) {
+          query RecipeView($id: ID!) {
             recipeById (id: $id) {
               title
               description
@@ -52,5 +52,17 @@ class RecipesTestCase(TestCase):
         """, variables={"id": entry_id})
         self.assertMatchSnapshot(response)
 
+    def test_delete_recipe(self):
+        entry_id = Recipe.objects.filter(title="Test1")[0].id
+        response = self.client.execute("""
+            mutation DeleteRecipe($id: ID!) {
+                    deleteRecipe (id: $id) {
+                        recipe {
+                        id
+                    }
+                }
+            }
+        """, variables={"id": entry_id})
+        self.assertMatchSnapshot(response)
 
 
