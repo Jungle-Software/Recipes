@@ -42,6 +42,7 @@ describe('recipe page', () => {
           .should('contain', "40")
           .should('contain', "IngredientName1")
           ///Need to add allergens
+
           .should('contain', "Unclear")
           .should('contain', "None")
           .should('contain', "Absolutely none")
