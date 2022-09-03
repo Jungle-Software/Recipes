@@ -33,6 +33,18 @@ class UpdateAllergen(graphene.Mutation):
         allergen.save()
         return UpdateAllergen(allergen=allergen)
 
+class DeleteAllergen(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID()
+
+    allergen = graphene.Field(AllergenType)
+
+    @classmethod
+    def mutate(cls, root, info, id):
+        allergen = Allergen.objects.get(pk=id)
+        allergen.delete()
+        return
+
 
 class CreateIngredient(graphene.Mutation):
     class Arguments:
@@ -97,6 +109,18 @@ class UpdateCategory(graphene.Mutation):
         category.save()
         return UpdateCategory(category=category)
 
+class DeleteCategory(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID()
+
+    category = graphene.Field(CategoryType)
+
+    @classmethod
+    def mutate(cls, root, info, id):
+        category = Category.objects.get(pk=id)
+        category.delete()
+        return
+
 
 class CreateRecipe(graphene.Mutation):
     class Arguments:
@@ -156,6 +180,7 @@ class DeleteRecipe(graphene.Mutation):
         recipe = Recipe.objects.get(pk=id)
         recipe.delete()
         return
+
 class Mutation(graphene.ObjectType):
     create_recipe = CreateRecipe.Field()
     update_recipe = UpdateRecipe.Field()
@@ -163,9 +188,11 @@ class Mutation(graphene.ObjectType):
     
     create_category = CreateCategory.Field()
     update_category = UpdateCategory.Field()
+    delete_category = DeleteCategory.Field()
 
     create_allergen = CreateAllergen.Field()
     update_allergen = UpdateAllergen.Field()
+    delete_allergen = DeleteAllergen.Field()
 
     create_ingredient = CreateIngredient.Field()
     update_ingredient = UpdateIngredient.Field()
