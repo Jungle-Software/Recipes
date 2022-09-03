@@ -21,6 +21,7 @@ class Allergen(models.Model):
         return self.type
     
 
+'''
 class Ingredient(models.Model):
     name = models.CharField(max_length=150)
     calories = models.IntegerField()
@@ -31,19 +32,21 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.name
-
+'''
 
 class Recipe(models.Model):
     title = models.CharField(max_length=150)
-    description = models.TextField()
-    categories = models.ManyToManyField(Category, help_text='Select a category for this recipe')
-    portion_size = models.IntegerField()
-    prep_time = models.IntegerField()  # In minutes
-    cook_time = models.IntegerField()  # In minutes
-    ingredients = models.ManyToManyField(Ingredient, help_text='Select an ingredient for this recipe')
-    instructions = models.TextField()
-    additional_notes = models.TextField()
-    nutritional_info = models.TextField()
+    description = models.TextField(blank=True)
+    categories = models.ManyToManyField(Category, help_text='Select a category for this recipe', blank=True)
+    portion_size = models.IntegerField(blank=True, null=True)
+    prep_time = models.IntegerField(blank=True, null=True)  # In minutes
+    cook_time = models.IntegerField(blank=True, null=True)  # In minutes
+    ingredients = models.ManyToManyField('self', help_text='Select an ingredient for this recipe', blank=True)
+    allergens = models.ManyToManyField(Allergen, blank=True)
+    instructions = models.TextField(blank=True)
+    additional_notes = models.TextField(blank=True)
+    nutritional_info = models.TextField(blank=True)
+    parentSubRecipe = models.IntegerField() # 0=Parent recipe only 1=Parent and Ingredient 2=Ingredient
     date_created = models.DateField(auto_now_add=True)
 
     #def calculateCalories(self):

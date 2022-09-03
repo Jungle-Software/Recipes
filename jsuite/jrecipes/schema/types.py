@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from ..models import Recipe, Category, Ingredient, Allergen
+from ..models import Recipe, Category, Allergen
 
 
 class CategoryType(DjangoObjectType):
@@ -29,7 +29,7 @@ class AllergenType(DjangoObjectType):
 class AllergenInput(graphene.InputObjectType):
     type = graphene.String()
 
-
+'''
 class IngredientType(DjangoObjectType):
     class Meta:
         model = Ingredient
@@ -45,7 +45,7 @@ class IngredientInput(graphene.InputObjectType):
     name = graphene.String()
     calories = graphene.Int()
     allergen = graphene.Field(AllergenInput)
-
+'''
 
 class RecipeType(DjangoObjectType):
     class Meta:
@@ -59,9 +59,11 @@ class RecipeType(DjangoObjectType):
             'prep_time',
             'cook_time',
             'ingredients',
+            'allergens',
             'instructions',
             'additional_notes',
             'nutritional_info',
+            'parentSubRecipe',
             'date_created',
         )
 
@@ -73,8 +75,10 @@ class RecipeInput(graphene.InputObjectType):
     portion_size = graphene.Int()
     prep_time = graphene.Int()
     cook_time = graphene.Int()
-    ingredients = graphene.Field(IngredientInput)
+    ingredients = graphene.Field(lambda: RecipeInput)
+    allergens = graphene.Field(AllergenInput)
     instructions = graphene.String()
     additional_notes = graphene.String()
     nutritional_info = graphene.String()
+    parentSubRecipe = graphene.Int()
 

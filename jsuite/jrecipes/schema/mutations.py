@@ -1,7 +1,7 @@
 import graphene
 
-from jrecipes.models import Recipe, Category, Ingredient, Allergen
-from jrecipes.schema.types import RecipeInput, RecipeType, CategoryInput, CategoryType, IngredientInput, IngredientType, AllergenInput, AllergenType
+from jrecipes.models import Recipe, Category, Allergen
+from jrecipes.schema.types import RecipeInput, RecipeType, CategoryInput, CategoryType, AllergenInput, AllergenType
 
 
 class CreateAllergen(graphene.Mutation):
@@ -45,7 +45,7 @@ class DeleteAllergen(graphene.Mutation):
         allergen.delete()
         return
 
-
+'''
 class CreateIngredient(graphene.Mutation):
     class Arguments:
         input = IngredientInput(required=True)
@@ -78,7 +78,7 @@ class UpdateIngredient(graphene.Mutation):
         ingredient.allergens = input.allergens
         ingredient.save()
         return UpdateIngredient(ingredient=ingredient)
-
+'''
 
 class CreateCategory(graphene.Mutation):
     class Arguments:
@@ -138,9 +138,11 @@ class CreateRecipe(graphene.Mutation):
         recipe.prep_time = input.prep_time
         recipe.cook_time = input.cook_time
         recipe.ingredients = input.ingredients
+        recipe.allergens = input.allergens
         recipe.instructions = input.instructions
         recipe.additional_notes = input.additional_notes
         recipe.nutritional_info = input.nutritional_info
+        recipe.parentSubRecipe = input.parentSubRecipe
 
         recipe.save()
         return CreateRecipe(recipe=recipe)
@@ -163,9 +165,11 @@ class UpdateRecipe(graphene.Mutation):
         recipe.prep_time = input.prep_time
         recipe.cook_time = input.cook_time
         recipe.ingredients = input.ingredients
+        recipe.allergens = input.allergens
         recipe.instructions = input.instructions
         recipe.additional_notes = input.additional_notes
         recipe.nutritional_info = input.nutritional_info
+        recipe.parentSubRecipe = input.nutritional_info
         recipe.save()
         return UpdateRecipe(recipe=recipe)
 
@@ -194,5 +198,7 @@ class Mutation(graphene.ObjectType):
     update_allergen = UpdateAllergen.Field()
     delete_allergen = DeleteAllergen.Field()
 
+'''
     create_ingredient = CreateIngredient.Field()
     update_ingredient = UpdateIngredient.Field()
+'''
