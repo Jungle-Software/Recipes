@@ -72,13 +72,22 @@ class RecipeInput(graphene.InputObjectType):
     title = graphene.String()
     description = graphene.String()
     categories = graphene.Field(CategoryInput)
-    portion_size = graphene.Int()
+    portion_size = graphene.Int()  # TODO rename to servings
     prep_time = graphene.Int()
     cook_time = graphene.Int()
     ingredients = graphene.Field(lambda: RecipeInput)
     allergens = graphene.Field(AllergenInput)
-    instructions = graphene.String()
-    additional_notes = graphene.String()
-    nutritional_info = graphene.String()
-    parentSubRecipe = graphene.Int()
+    instructions = graphene.String()  # TODO make instructions object (which contains step objects (one photo + string))
+    type_enum = graphene.Int()  # TODO make it an enum and change elsewhere (remove parentSubRecipe): 0 = recipe, 1 = recipe that can be used as an ingredient (sauce, bread etc) 2 = ingredient
+    # TODO remove all unused comments (ingredients)
+    # TODO add thumbnail
+    # TODO add nutritional info
+    
+'''
+TODO add nutritional info
 
+portion size (number, unit) [another separate object - many to one]
+calories
+
+everything that is on a label
+''' 
