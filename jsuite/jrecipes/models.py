@@ -19,20 +19,18 @@ class Allergen(models.Model):
 
     def __str__(self):
         return self.type
-    
 
-'''
-class Ingredient(models.Model):
-    name = models.CharField(max_length=150)
+
+class NutritionalUnit(models.Model):
+    serving_size = models.IntegerField()
+    unit = models.IntegerField()    # Will be enum
+
+
+class NutritionalInfo(models.Model):
+    nutritional_unit = models.OneToOneField(NutritionalUnit)    # Is it really one to one???
     calories = models.IntegerField()
-    allergens = models.ManyToManyField(Allergen, help_text='Select an allergen contained in this ingredient')
 
-    class Meta:
-        ordering = ['-id']
 
-    def __str__(self):
-        return self.name
-'''
 
 class Recipe(models.Model):
     title = models.CharField(max_length=150)
