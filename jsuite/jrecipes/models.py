@@ -22,14 +22,29 @@ class Allergen(models.Model):
 
 
 class NutritionalUnit(models.Model):
-    serving_size = models.IntegerField()
-    unit = models.IntegerField()    # Will be enum
+
+
+
+    def __str__(self):
+        return self.unit
 
 
 class NutritionalInfo(models.Model):
-    nutritional_unit = models.OneToOneField(NutritionalUnit)    # Is it really one to one???
+
+    class UnitType(models.TextChoices):
+        milligram = 'mg'
+        gram = 'g'
+        kilogram = 'kg'
+
+    quantity = models.IntegerField()
+    unit = models.CharField(
+        max_length=4,
+        choices=UnitType.choices,
+    )
     calories = models.IntegerField()
 
+    def __str__(self):
+        return str(self.serving_size) + self.unit
 
 
 class Recipe(models.Model):
@@ -43,7 +58,7 @@ class Recipe(models.Model):
     allergens = models.ManyToManyField(Allergen, blank=True)
     instructions = models.TextField(blank=True)
     additional_notes = models.TextField(blank=True)
-    nutritional_info = models.TextField(blank=True)
+    nutritional_info = models.OneToOneField(NutritionalInfo, on_delete=models.CASCADE)
     parentSubRecipe = models.IntegerField() # 0=Parent recipe only 1=Parent and Ingredient 2=Ingredient
     date_created = models.DateField(auto_now_add=True)
 

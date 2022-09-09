@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from ..models import Recipe, Category, Allergen, NutritionalUnit, NutritionalInfo
+from ..models import Recipe, Category, Allergen, NutritionalInfo
 
 
 class CategoryType(DjangoObjectType):
@@ -29,30 +29,20 @@ class AllergenType(DjangoObjectType):
 class AllergenInput(graphene.InputObjectType):
     type = graphene.String()
 
-class NutritionalUnitType(DjangoObjectType):
-    class Meta:
-        model = NutritionalUnit
-        fields = (
-            'id',
-            'serving_size',
-            'unit',
-        )
-
-class NutritionalUnitInput(graphene.InputObjectType):
-    serving_size = graphene.Int()
-    unit = graphene.Int()   # Change to Enum when you figure out how
 
 class NutritionalInfoType(DjangoObjectType):
     class Meta:
         model = NutritionalInfo
         fields = (
             'id',
-            'nutritional_unit',
+            'quantity'
+            'unit',
             'calories',
         )
 
 class NutritionalInfoInput(graphene.InputObjectType):
-    nutritional_unit = graphene.Field(NutritionalUnitInput)
+    quantity = graphene.Int()
+    unit = graphene.Int()
     calories = graphene.Int()
 
 class RecipeType(DjangoObjectType):
@@ -89,7 +79,7 @@ class RecipeInput(graphene.InputObjectType):
     type_enum = graphene.Int()  # TODO make it an enum and change elsewhere (remove parentSubRecipe): 0 = recipe, 1 = recipe that can be used as an ingredient (sauce, bread etc) 2 = ingredient
     # TODO remove all unused comments (ingredients)
     # TODO add thumbnail
-    # TODO add nutritional info
+    nutritional_info = graphene.Field(NutritionalInfoInput)
     
 '''
 TODO add nutritional info
