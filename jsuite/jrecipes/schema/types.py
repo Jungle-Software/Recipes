@@ -35,15 +35,17 @@ class NutritionalInfoType(DjangoObjectType):
         model = NutritionalInfo
         fields = (
             'id',
-            'quantity'
+            'quantity',
             'unit',
             'calories',
         )
 
+
 class NutritionalInfoInput(graphene.InputObjectType):
     quantity = graphene.Int()
-    unit = graphene.Int()
+    unit = graphene.Enum.from_enum(NutritionalInfo.UnitType)
     calories = graphene.Int()
+
 
 class RecipeType(DjangoObjectType):
     class Meta:
@@ -53,7 +55,7 @@ class RecipeType(DjangoObjectType):
             'title',
             'description',
             'categories',
-            'portion_size',
+            'servings',
             'prep_time',
             'cook_time',
             'ingredients',
@@ -61,7 +63,7 @@ class RecipeType(DjangoObjectType):
             'instructions',
             'additional_notes',
             'nutritional_info',
-            'parentSubRecipe',
+            'type_enum',
             'date_created',
         )
 
@@ -70,19 +72,18 @@ class RecipeInput(graphene.InputObjectType):
     title = graphene.String()
     description = graphene.String()
     categories = graphene.Field(CategoryInput)
-    portion_size = graphene.Int()  # TODO rename to servings
+    servings = graphene.Int()
     prep_time = graphene.Int()
     cook_time = graphene.Int()
     ingredients = graphene.Field(lambda: RecipeInput)
     allergens = graphene.Field(AllergenInput)
     instructions = graphene.String()  # TODO make instructions object (which contains step objects (one photo + string))
-    type_enum = graphene.Int()  # TODO make it an enum and change elsewhere (remove parentSubRecipe): 0 = recipe, 1 = recipe that can be used as an ingredient (sauce, bread etc) 2 = ingredient
-    # TODO remove all unused comments (ingredients)
+    type_enum = graphene.Enum.from_enum(Recipe.TypeEnum)
     # TODO add thumbnail
     nutritional_info = graphene.Field(NutritionalInfoInput)
     
 '''
-TODO add nutritional info
+TODO add nutritional info **PARTLY  DONE**
 
 portion size (number, unit) [another separate object - many to one]
 calories

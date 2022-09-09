@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext as _
 
 
 class Category(models.Model):
@@ -24,26 +25,44 @@ class Allergen(models.Model):
 class NutritionalInfo(models.Model):
 
     class UnitType(models.TextChoices):
-        milligram = 'mg'
-        gram = 'g'
-        kilogram = 'kg'
+        # TODO add way to do something like 2 Whole banana if the ingredient is a banana for example
+        milligram = 'milligram', _('mg')
+        gram = 'gram', _('g')
+        kilogram = 'kilogram', _('Kg')
+        milliliter = 'milliliter', _('mL')
+        liter = 'liter', _('L')
+        pound = 'pound', _('lb')
+        ounce = 'ounce', _('oz')
+        fluid_once = 'fluid_once', _('fl oz')
+        teaspoon = 'teaspoon', _('tsp')
+        tablespoon = 'tablespoon', _('Tbsp')
+        cup = 'cup', _('cup')
+        pint = 'pint', _('pint')
+        quart = 'quart', _('quart')
+        gallon = 'gallon', _('gallon')
 
     quantity = models.IntegerField()
     unit = models.CharField(
-        max_length=4,
+        max_length=20,
         choices=UnitType.choices,
     )
     calories = models.IntegerField()
 
     def __str__(self):
-        return str(self.quantity) + self.unit
+        return str(self.quantity) + self.unit + ' per Serving Calories: ' + str(self.calories)
 
 
 class Recipe(models.Model):
+
+    class TypeEnum(models.TextChoices):
+        recipe = 'recipe', _('Recipe')
+        subRecipe = 'subRecipe', _('Recipe and ingredient')
+        ingredient = 'ingredient', _('Ingredient')
+
     title = models.CharField(max_length=150)
     description = models.TextField(blank=True)
     categories = models.ManyToManyField(Category, help_text='Select a category for this recipe', blank=True)
-    portion_size = models.IntegerField(blank=True, null=True)
+    servings = models.IntegerField(blank=True, null=True)
     prep_time = models.IntegerField(blank=True, null=True)  # In minutes
     cook_time = models.IntegerField(blank=True, null=True)  # In minutes
     ingredients = models.ManyToManyField('self', help_text='Select an ingredient for this recipe', blank=True)
@@ -51,7 +70,11 @@ class Recipe(models.Model):
     instructions = models.TextField(blank=True)
     additional_notes = models.TextField(blank=True)
     nutritional_info = models.OneToOneField(NutritionalInfo, on_delete=models.CASCADE)
-    parentSubRecipe = models.IntegerField() # 0=Parent recipe only 1=Parent and Ingredient 2=Ingredient
+    type_enum = models.CharField(
+        max_length=20,
+        choices=TypeEnum.choices,
+        default=TypeEnum.recipe,
+    ) # 0=Parent recipe only 1=Parent and Ingredient 2=Ingredient
     date_created = models.DateField(auto_now_add=True)
 
     #def calculateCalories(self):
