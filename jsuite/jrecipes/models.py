@@ -21,14 +21,6 @@ class Allergen(models.Model):
         return self.type
 
 
-class NutritionalUnit(models.Model):
-
-
-
-    def __str__(self):
-        return self.unit
-
-
 class NutritionalInfo(models.Model):
 
     class UnitType(models.TextChoices):
@@ -44,7 +36,7 @@ class NutritionalInfo(models.Model):
     calories = models.IntegerField()
 
     def __str__(self):
-        return str(self.serving_size) + self.unit
+        return str(self.quantity) + self.unit
 
 
 class Recipe(models.Model):
