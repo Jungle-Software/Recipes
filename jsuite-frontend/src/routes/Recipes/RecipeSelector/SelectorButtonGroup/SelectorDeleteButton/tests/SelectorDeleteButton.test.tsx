@@ -1,12 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import SelectorDeleteButton, { DELETE_RECIPE_BY_ID_QUERY } from "../SelectorDeleteButton";
+import SelectorDeleteButton, { DELETE_RECIPE_BY_ID_MUTATION } from "../SelectorDeleteButton";
 
 const recipeId = { id: 1, title: "Test Recipe 1" }
 
 const defaultRecipeMock = {
     request: {
-      query: DELETE_RECIPE_BY_ID_QUERY,
+      query: DELETE_RECIPE_BY_ID_MUTATION,
       variables: {
         id: 1,
       },
@@ -20,7 +20,7 @@ const defaultRecipeMock = {
 
 const errorRecipeRequestMock = {
     request: {
-      query: DELETE_RECIPE_BY_ID_QUERY,
+      query: DELETE_RECIPE_BY_ID_MUTATION,
       variables: {
         id: 1,
       },

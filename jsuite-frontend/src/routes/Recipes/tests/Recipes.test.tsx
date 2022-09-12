@@ -3,7 +3,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import Recipes, { ALL_RECIPES_QUERY } from "../Recipes";
 import { SELECT_RECIPE_PROMPT } from "../../../constants";
 import { RECIPE_BY_ID_QUERY } from "../RecipeView/RecipeView";
-import { DELETE_RECIPE_BY_ID_QUERY } from "../RecipeSelector/SelectorButtonGroup/SelectorDeleteButton/SelectorDeleteButton";
+import { DELETE_RECIPE_BY_ID_MUTATION } from "../RecipeSelector/SelectorButtonGroup/SelectorDeleteButton/SelectorDeleteButton";
 
 const noRecipesMock = {
   request: {
@@ -74,7 +74,7 @@ const recipesDeletedMock = {
 
 const deleteRecipeMock = {
   request: {
-    query: DELETE_RECIPE_BY_ID_QUERY,
+    query: DELETE_RECIPE_BY_ID_MUTATION,
     variables: {
       id: 1,
     },

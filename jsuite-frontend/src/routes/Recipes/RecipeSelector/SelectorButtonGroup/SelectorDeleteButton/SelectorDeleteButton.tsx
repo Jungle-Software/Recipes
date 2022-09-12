@@ -3,7 +3,7 @@ import DevError from "../../../../../components/DevError/DevError";
 import { RecipeId } from "../../../../../models/Recipe";
 import { Button } from "./SelectorDeleteButton.styles";
 
-export const DELETE_RECIPE_BY_ID_QUERY = gql`
+export const DELETE_RECIPE_BY_ID_MUTATION = gql`
     mutation DeleteRecipe($id: ID!) {
             deleteRecipe (id: $id) {
                 recipe {
@@ -25,7 +25,7 @@ type Props = {
 }
 
 const SelectorDeleteButton = (props: Props) => {
-    const [deleteRecipe, { data, loading, error }] = useMutation(DELETE_RECIPE_BY_ID_QUERY, {
+    const [deleteRecipe, { data, loading, error }] = useMutation(DELETE_RECIPE_BY_ID_MUTATION, {
         variables: { id: props.recipe.id },
         onCompleted() {
             props.handleClick(props.recipe.id)
