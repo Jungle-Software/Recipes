@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from ..models import Recipe, Category, Allergen, NutritionalInfo
+from ..models import Recipe, Category, Allergen, NutritionalInfo, InstructionStep, Instruction
 
 
 class CategoryType(DjangoObjectType):
@@ -46,6 +46,31 @@ class NutritionalInfoInput(graphene.InputObjectType):
     unit = graphene.Enum.from_enum(NutritionalInfo.UnitType)
     calories = graphene.Int()
 
+class InstructionStepType(DjangoObjectType):
+    class Meta:
+        model = InstructionStep
+        fields = (
+            'id',
+            'text',
+            #'image',
+            'sub_steps',
+        )
+
+class InstructionStepInput(graphene.InputObjectType):
+    #image = graphene.String() # TODO FIX THIS!!
+    text = graphene.String()
+    sub_steps = graphene.Field(lambda: InstructionStepInput)
+
+class InstructionType(DjangoObjectType):
+    class Meta:
+        model = Instruction
+        fields = (
+            'id',
+            'instruction_steps',
+        )
+
+class InstructionInput(graphene.InputObjectType):
+    instruction_steps = graphene.Field(InstructionStepInput)
 
 class RecipeType(DjangoObjectType):
     class Meta:

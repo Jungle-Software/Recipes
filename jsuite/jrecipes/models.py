@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext as _
 
-
 class Category(models.Model):
     name = models.CharField(max_length=150)
 
@@ -51,6 +50,25 @@ class NutritionalInfo(models.Model):
     def __str__(self):
         return str(self.quantity) + self.unit + ' per Serving Calories: ' + str(self.calories)
 
+class InstructionStep(models.Model):
+    text = models.TextField()
+    #image = models.ImageFIeld(upload_to=None, blank=True) # TODO FIX IMAGES LATER
+    sub_steps = models.ManyToManyField('self', blank=True)
+
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.text
+
+class Instruction(models.Model):
+    instruction_steps = models.ManyToManyField(InstructionStep)
+
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return "Nothing yet fix this" # TODO
 
 class Recipe(models.Model):
 
@@ -67,7 +85,7 @@ class Recipe(models.Model):
     cook_time = models.IntegerField(blank=True, null=True)  # In minutes
     ingredients = models.ManyToManyField('self', help_text='Select an ingredient for this recipe', blank=True)
     allergens = models.ManyToManyField(Allergen, blank=True)
-    instructions = models.TextField(blank=True)
+    instructions = models.OneToOneField(Instruction, on_delete=models.CASCADE)
     additional_notes = models.TextField(blank=True)
     nutritional_info = models.OneToOneField(NutritionalInfo, on_delete=models.CASCADE)
     type_enum = models.CharField(
