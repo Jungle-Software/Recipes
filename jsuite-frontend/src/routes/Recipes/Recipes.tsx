@@ -43,7 +43,7 @@ const Recipes = () => {
       <NavBar></NavBar>
       <Title>Recipes</Title>
       <AddRecipeButton onClick={() => {setShowAddRecipeDialog(true)}}>ADD RECIPE</AddRecipeButton>
-      <AddRecipeDialog show={showAddRecipeDialog} hide={() => {setShowAddRecipeDialog(false)}} handleSubmit={() => {handleAdd()}} /> {/* This is the dialog(modal) as a whole, with the fields to enter for creating the recipe*/}
+      <AddRecipeDialog show={showAddRecipeDialog} hide={() => {setShowAddRecipeDialog(false)}} handleCreate={() => {handleAdd()}} />
       <RecipeSelector
         recipeIds={data.allRecipes}
         onRecipeSelect={(recipeId: number) => setCurrentRecipeId(recipeId)}
