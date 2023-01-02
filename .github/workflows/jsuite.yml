@@ -21,7 +21,6 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -39,44 +38,45 @@ jobs:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        cd jsuite
-        pip install -r requirements.txt
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd jsuite
+          pip install -r requirements.txt
 
-    - name: Replace force_text
-      run: sed -i 's/force_text/force_str/g' "$LD_LIBRARY_PATH/python3.9/site-packages/graphene_django/utils/utils.py"
+      - name: Replace force_text
+        run: sed -i 's/force_text/force_str/g' "$LD_LIBRARY_PATH/python3.9/site-packages/graphene_django/utils/utils.py"
 
-    - name: Run migrations
-      run: |
-        cd jsuite
-        python manage.py migrate
+      - name: Run migrations
+        run: |
+          cd jsuite
+          python manage.py migrate
 
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: jsuite-frontend/package-lock.json
+        env:
+          REACT_APP_RECIPES_URI: ${{ env.REACT_APP_RECIPES_URI }}
+
+  backend-tests:
     - name: Run backend test with coverage
       run: |
         cd jsuite
         coverage run --source='.' manage.py test
         coverage report
 
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: jsuite-frontend/package-lock.json
-      env:
-        REACT_APP_RECIPES_URI: ${{ env.REACT_APP_RECIPES_URI }}
-
+  frontend-tests:
     - name: Run React component tests & test coverage
       run: |
         cd jsuite-frontend
@@ -84,6 +84,7 @@ jobs:
         npm run build --if-present
         npm run test:coverage
 
+  e2e-tests:
     - name: Run e2e tests
       uses: cypress-io/github-action@v4
       with:
