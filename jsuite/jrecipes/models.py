@@ -63,6 +63,7 @@ class InstructionStep(models.Model):
     def __str__(self):
         return self.text
 
+'''
 class Instruction(models.Model):
     instruction_steps = models.ManyToManyField(InstructionStep)
 
@@ -71,6 +72,7 @@ class Instruction(models.Model):
 
     def __str__(self):
         return "Nothing yet fix this" # TODO
+'''
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=150)
