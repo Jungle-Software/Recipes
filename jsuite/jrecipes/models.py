@@ -101,33 +101,18 @@ class IngredientListItem(models.Model):
 
 class Recipe(models.Model):
 
-    class TypeEnum(models.TextChoices):
-        recipe = 'recipe', _('Recipe')
-        subRecipe = 'subRecipe', _('Recipe and ingredient')
-        ingredient = 'ingredient', _('Ingredient')
-
     title = models.CharField(max_length=150)
     description = models.TextField(blank=True)
     categories = models.ManyToManyField(Category, help_text='Select a category for this recipe', blank=True)
     servings = models.IntegerField(blank=True, null=True)
     prep_time = models.IntegerField(blank=True, null=True)  # In minutes
     cook_time = models.IntegerField(blank=True, null=True)  # In minutes
-    ingredients = models.ManyToManyField('self', help_text='Select an ingredient for this recipe', blank=True)
+    ingredients = models.ManyToManyField(IngredientListItem, help_text='Select an IngredientListItem for this recipe', blank=True)
     allergens = models.ManyToManyField(Allergen, blank=True)
-    instructions = models.OneToOneField(Instruction, on_delete=models.CASCADE)
+    instructions = models.OneToOneField(InstructionStep, on_delete=models.CASCADE)
     additional_notes = models.TextField(blank=True)
-    nutritional_info = models.OneToOneField(NutritionalInfo, on_delete=models.CASCADE)
-    type_enum = models.CharField(
-        max_length=20,
-        choices=TypeEnum.choices,
-        default=TypeEnum.recipe,
-    ) # 0=Parent recipe only 1=Parent and Ingredient 2=Ingredient
+    date_updated = models.DateField(auto_now=True)
     date_created = models.DateField(auto_now_add=True)
-
-    #def calculateCalories(self):
-    #    for x in self.ingredients.get_queryset():
-    #        caloriesCount += x.calories
-    #    return caloriesCount
 
     class Meta:
         ordering = ['-date_created']
