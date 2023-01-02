@@ -20,25 +20,26 @@ class Allergen(models.Model):
     def __str__(self):
         return self.type
 
+class UnitType(models.TextChoices):
+    # TODO add way to do something like 2 Whole banana if the ingredient is a banana for example
+    unit = 'unit', _('un')
+    milligram = 'milligram', _('mg')
+    gram = 'gram', _('g')
+    kilogram = 'kilogram', _('Kg')
+    milliliter = 'milliliter', _('mL')
+    liter = 'liter', _('L')
+    pound = 'pound', _('lb')
+    ounce = 'ounce', _('oz')
+    fluid_once = 'fluid_once', _('fl oz')
+    teaspoon = 'teaspoon', _('tsp')
+    tablespoon = 'tablespoon', _('Tbsp')
+    cup = 'cup', _('cup')
+    pint = 'pint', _('pint')
+    quart = 'quart', _('quart')
+    gallon = 'gallon', _('gallon')
 
+'''
 class NutritionalInfo(models.Model):
-
-    class UnitType(models.TextChoices):
-        # TODO add way to do something like 2 Whole banana if the ingredient is a banana for example
-        milligram = 'milligram', _('mg')
-        gram = 'gram', _('g')
-        kilogram = 'kilogram', _('Kg')
-        milliliter = 'milliliter', _('mL')
-        liter = 'liter', _('L')
-        pound = 'pound', _('lb')
-        ounce = 'ounce', _('oz')
-        fluid_once = 'fluid_once', _('fl oz')
-        teaspoon = 'teaspoon', _('tsp')
-        tablespoon = 'tablespoon', _('Tbsp')
-        cup = 'cup', _('cup')
-        pint = 'pint', _('pint')
-        quart = 'quart', _('quart')
-        gallon = 'gallon', _('gallon')
 
     quantity = models.IntegerField()
     unit = models.CharField(
@@ -49,6 +50,7 @@ class NutritionalInfo(models.Model):
 
     def __str__(self):
         return str(self.quantity) + self.unit + ' per Serving Calories: ' + str(self.calories)
+'''
 
 class InstructionStep(models.Model):
     text = models.TextField()
