@@ -72,6 +72,31 @@ class Instruction(models.Model):
     def __str__(self):
         return "Nothing yet fix this" # TODO
 
+class Ingredient(models.Model):
+    name = models.CharField(max_length=150)
+    allergen = models.ManyToManyField(Allergen, blank=True)
+
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.name
+
+class IngredientListItem(models.Model):
+    ingredient = models.OneToOneField(Ingredient, on_delete=models.CASCADE)
+    unit = models.CharField(
+        max_length=20,
+        choices=UnitType.choices,
+    )
+    quantity = models.DecimalField(max_digits=10, decimal_places=4)  # Used decimal instead of float, see https://docs.python.org/3/library/decimal.html#module-decimal
+
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.ingredient.name
+
+
 class Recipe(models.Model):
 
     class TypeEnum(models.TextChoices):
