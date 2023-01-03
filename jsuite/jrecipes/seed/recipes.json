@@ -1,0 +1,34 @@
+[
+    {
+        "model": "jrecipes.recipe",
+        "pk": "1",
+        "fields" : {
+            "title": "Mock Recipe",
+            "description": "This is for Cypress e2e tests~ Honestly, this should become actual recipes and we can put it for dev seeding AND testing",
+            "portion_size": "4",
+            "prep_time": "20",
+            "cook_time": "40",
+            "ingredients": "This will change when Guigui changes the schema",
+            "instructions": "Unclear",
+            "additional_notes": "None",
+            "nutritional_info": "Absolutely none",
+            "date_created": "2022-06-09"
+        }
+    },
+    {
+        "model": "jrecipes.recipe",
+        "pk": "2",
+        "fields" : {
+            "title": "Mock Recipe 2",
+            "description": "This is for Cypress e2e tests~ Honestly, this should become actual recipes and we can put it for dev seeding AND testing",
+            "portion_size": "4",
+            "prep_time": "20",
+            "cook_time": "40",
+            "ingredients": "This will change when Guigui changes the schema AS WELL",
+            "instructions": "Unclear",
+            "additional_notes": "None",
+            "nutritional_info": "Absolutely none",
+            "date_created": "2022-06-09"
+        }
+    }
+]
