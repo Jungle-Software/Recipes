@@ -57,6 +57,10 @@ jobs:
     - name: Replace force_text
       run: sed -i 's/force_text/force_str/g' "$LD_LIBRARY_PATH/python3.9/site-packages/graphene_django/utils/utils.py"
 
+    - name: Set hosts
+      run: sudo echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
+
+
     - name: Run database migrations
       run: |
         cd jsuite
