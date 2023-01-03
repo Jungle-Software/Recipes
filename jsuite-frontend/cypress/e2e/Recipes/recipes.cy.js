@@ -2,6 +2,11 @@
 import { hasOperationName } from '../../utils/graphql-test-utils'
 
 describe('recipe page', () => {
+    it('should fucking pass', () => {
+        cy.log("this shit better pass")
+        expect(true).to.equal(true)
+    })
+
     it('prompts the user to select a recipe', () => {
         cy.visit('/recipes')
         cy.get('[id=select-recipe-prompt]').should('have.text', 'Please select a recipe (or insert a new one if you have none!)')
