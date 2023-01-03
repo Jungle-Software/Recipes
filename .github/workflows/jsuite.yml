@@ -86,11 +86,11 @@ jobs:
     - name: Run React component tests & test coverage
       run: |
         cd jsuite-frontend
-        npm ci
         npm run build --if-present
         npm run test:coverage
 
     - name: Run e2e tests
       run: |
+        echo "127.0.0.1 localhost" >> /etc/hosts
         cd jsuite-frontend
         npm run cy:e2e
