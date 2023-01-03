@@ -92,6 +92,5 @@ jobs:
 
     - name: Run e2e tests
       run: |
-        sudo echo "127.0.0.1 localhost" sudo tee -a /etc/hosts
         cd jsuite-frontend
         npm run cy:e2e
