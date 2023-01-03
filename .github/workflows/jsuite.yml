@@ -60,6 +60,11 @@ jobs:
         cd jsuite
         python manage.py migrate
 
+    - name: Run database seeding
+      run: |
+        cd jsuite
+        python manage.py loaddata jrecipes/seed/recipes.json
+
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
