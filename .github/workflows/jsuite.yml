@@ -67,6 +67,11 @@ jobs:
         cd jsuite
         python manage.py loaddata jrecipes/seed/recipes.json
 
+    - name: Actually run the backend lmao?!
+      run: |
+        cd jsuite
+        python manage.py runserver 8080
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
