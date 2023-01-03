@@ -40,6 +40,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
+    # Setup start
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
@@ -68,7 +69,8 @@ jobs:
         cache-dependency-path: jsuite-frontend/package-lock.json
       env:
         REACT_APP_RECIPES_URI: ${{ env.REACT_APP_RECIPES_URI }}
-
+    # Setup end
+    
     - name: Run backend tests with coverage
       run: |
         cd jsuite
