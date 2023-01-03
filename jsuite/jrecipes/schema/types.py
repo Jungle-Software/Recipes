@@ -77,14 +77,14 @@ class IngredientListItemType(DjangoObjectType):
         model = IngredientListItem
         fields = (
             'id',
-            'ingredient'
+            'ingredient',
             'unit',
             'quantity',
         )
 
 class IngredientListItemInput(graphene.InputObjectType):
     ingredient = graphene.Field(IngredientInput)
-    unit = graphene.Enum.from_enum(IngredientListItem.unit)
+    unit = graphene.Enum.from_enum(IngredientListItem.UnitType)
     quantity = graphene.Decimal()
 
 class RecipeType(DjangoObjectType):

@@ -20,23 +20,6 @@ class Allergen(models.Model):
     def __str__(self):
         return self.type
 
-class UnitType(models.TextChoices):
-    # TODO add way to do something like 2 Whole banana if the ingredient is a banana for example
-    unit = 'unit', _('un')
-    milligram = 'milligram', _('mg')
-    gram = 'gram', _('g')
-    kilogram = 'kilogram', _('Kg')
-    milliliter = 'milliliter', _('mL')
-    liter = 'liter', _('L')
-    pound = 'pound', _('lb')
-    ounce = 'ounce', _('oz')
-    fluid_once = 'fluid_once', _('fl oz')
-    teaspoon = 'teaspoon', _('tsp')
-    tablespoon = 'tablespoon', _('Tbsp')
-    cup = 'cup', _('cup')
-    pint = 'pint', _('pint')
-    quart = 'quart', _('quart')
-    gallon = 'gallon', _('gallon')
 
 '''
 class NutritionalInfo(models.Model):
@@ -85,6 +68,25 @@ class Ingredient(models.Model):
         return self.name
 
 class IngredientListItem(models.Model):
+
+    class UnitType(models.TextChoices):
+        # TODO add way to do something like 2 Whole banana if the ingredient is a banana for example
+        unit = 'unit', _('un')
+        milligram = 'milligram', _('mg')
+        gram = 'gram', _('g')
+        kilogram = 'kilogram', _('Kg')
+        milliliter = 'milliliter', _('mL')
+        liter = 'liter', _('L')
+        pound = 'pound', _('lb')
+        ounce = 'ounce', _('oz')
+        fluid_once = 'fluid_once', _('fl oz')
+        teaspoon = 'teaspoon', _('tsp')
+        tablespoon = 'tablespoon', _('Tbsp')
+        cup = 'cup', _('cup')
+        pint = 'pint', _('pint')
+        quart = 'quart', _('quart')
+        gallon = 'gallon', _('gallon')
+
     ingredient = models.OneToOneField(Ingredient, on_delete=models.CASCADE)
     unit = models.CharField(
         max_length=20,
