@@ -59,7 +59,7 @@ class Instruction(models.Model):
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=150)
-    allergen = models.ManyToManyField(Allergen, blank=True)
+    allergens = models.ManyToManyField(Allergen, blank=True)
 
     class Meta:
         ordering = ['-id']
@@ -87,7 +87,7 @@ class IngredientListItem(models.Model):
         quart = 'quart', _('quart')
         gallon = 'gallon', _('gallon')
 
-    ingredient = models.OneToOneField(Ingredient, on_delete=models.CASCADE)
+    ingredient = models.OneToOneField(Ingredient, blank=True, on_delete=models.CASCADE)
     unit = models.CharField(
         max_length=20,
         choices=UnitType.choices,

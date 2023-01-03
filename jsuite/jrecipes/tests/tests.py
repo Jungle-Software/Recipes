@@ -27,28 +27,35 @@ class RecipesTestCase(TestCase):
         # Manually get the id of the specific entry, because it will not always be the same
         entry_id = Recipe.objects.filter(title="Test1")[0].id
         response = self.client.execute("""
-          query RecipeView($id: ID!) {
-            recipeById (id: $id) {
-              title
-              description
-              categories{
-                name
-              }
-              portionSize
-              prepTime
-              cookTime
-              ingredients{
-                name
-                allergens{
-                    type
+            query RecipeView($id: ID!) {
+                recipeById (id: $id) {
+                    title
+                    description
+                    categories{
+                        name
+                    }
+                    servings
+                    prepTime
+                    cookTime
+                    ingredientList{
+                        ingredient{
+                            name
+                            allergens{
+                                type
+                            }
+                        }
+                    }
+                    instructions{
+                        text
+                        subSteps{
+                            text
+                        }
+                    }
+                    additionalNotes
+                    dateUpdated
+                    dateCreated
                 }
-              }
-              instructions
-              additionalNotes
-              nutritionalInfo
-              dateCreated
             }
-          }
         """, variables={"id": entry_id})
         self.assertMatchSnapshot(response)
 

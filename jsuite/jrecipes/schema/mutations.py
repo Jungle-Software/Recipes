@@ -136,9 +136,9 @@ class CreateIngredient(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, input):
-        ingredient = IngredientInput()
+        ingredient = Ingredient()
         ingredient.name = input.name
-        ingredient.allergen = input.allergen
+        ingredient.allergens = input.allergens
 
         ingredient.save()
         return CreateIngredient(ingredient=ingredient)
@@ -154,7 +154,7 @@ class UpdateIngredient(graphene.Mutation):
     def mutate(cls, root, info, input, id):
         ingredient = Ingredient.objects.get(pk=id)
         ingredient.name = input.name
-        ingredient.allergen = input.allergen
+        ingredient.allergens = input.allergens
         ingredient.save()
         return UpdateIngredient(ingredient=ingredient)
 
@@ -178,7 +178,7 @@ class CreateIngredientListItem(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, input):
-        ingredient_list_item = IngredientListItemInput()
+        ingredient_list_item = IngredientListItem()
         ingredient_list_item.ingredient = input.ingredient
         ingredient_list_item.unit = input.unit
         ingredient_list_item.quantity = input.quantity

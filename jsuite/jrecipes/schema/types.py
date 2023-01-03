@@ -64,7 +64,7 @@ class IngredientType(DjangoObjectType):
         fields = (
             'id',
             'name',
-            'allergen',
+            'allergens',
         )
 
 class IngredientInput(graphene.InputObjectType):
