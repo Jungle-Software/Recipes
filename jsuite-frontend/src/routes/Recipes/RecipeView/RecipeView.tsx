@@ -5,28 +5,34 @@ import { SELECT_RECIPE_PROMPT } from "../../../constants";
 import LoadingMessage from "../../../components/LoadingMessage/LoadingMessage";
 
 export const RECIPE_BY_ID_QUERY = gql`
-  query RecipeById($id: ID!) {
-    recipeById(id: $id) {
-      title
-      description
-      categories{
-        name
-      }
-      portionSize
-      prepTime
-      cookTime
-      ingredients{
-        name
-        allergens{
-            type
+    query RecipeById($id: ID!) {
+        recipeById(id: $id) {
+            title
+            description
+            categories {
+                name
+            }
+            servings
+            prepTime
+            cookTime
+            ingredientList{
+                ingredient {
+                    name
+                    allergens {
+                        type
+                    }
+                }
+                unit
+                quantity
+            }
+            instructions{
+                text
+            }
+            additionalNotes
+            dateUpdated
+            dateCreated
         }
-      }
-      instructions
-      additionalNotes
-      nutritionalInfo
-      dateCreated
     }
-  }
 `;
 
 type Props = {
@@ -51,21 +57,25 @@ const RecipeView = (props: Props) => {
       <br />
       {data.recipeById.categories[0].name} {/*TEMPORARY FOR TESTING*/}
       <br />
-      {data.recipeById.portionSize}
+      {data.recipeById.servings}
       <br />
       {data.recipeById.prepTime}
       <br />
       {data.recipeById.cookTime}
       <br />
-      {data.recipeById.ingredients[0].name} {/*TEMPORARY FOR TESTING*/}
-      <br />
-      {data.recipeById.ingredients[0].allergens[0].type} {/*TEMPORARY FOR TESTING*/}
-      <br />
-      {data.recipeById.instructions}
+        {data.recipeById.ingredientList[0].ingredient.name}
+        <br/>
+        {data.recipeById.ingredientList[0].ingredient.allergens[0].type}
+        <br/>
+        {data.recipeById.ingredientList[0].unit} {/*TEMPORARY FOR TESTING*/}
+        <br />
+        {data.recipeById.ingredientList[0].quantity} {/*TEMPORARY FOR TESTING*/}
+        <br />
+      {data.recipeById.instructions[0].text}
       <br />
       {data.recipeById.additionalNotes}
       <br />
-      {data.recipeById.nutritionalInfo}
+      {data.recipeById.dateUpdated}
       <br />
       {data.recipeById.dateCreated}
     </View>

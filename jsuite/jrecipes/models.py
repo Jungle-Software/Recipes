@@ -38,7 +38,7 @@ class NutritionalInfo(models.Model):
 class InstructionStep(models.Model):
     text = models.TextField()
     #image = models.ImageField(upload_to=None, blank=True) # TODO FIX IMAGES LATER
-    sub_steps = models.ManyToManyField('self', blank=True)
+    sub_steps = models.ManyToManyField('self', blank=True, symmetrical=False)
 
     class Meta:
         ordering = ['-id']
@@ -111,7 +111,7 @@ class Recipe(models.Model):
     cook_time = models.IntegerField(blank=True, null=True)  # In minutes
     ingredient_list = models.ManyToManyField(IngredientListItem, help_text='Select an IngredientListItem for this recipe', blank=True)
     allergens = models.ManyToManyField(Allergen, blank=True)
-    instructions = models.OneToOneField(InstructionStep, on_delete=models.CASCADE)
+    instructions = models.ManyToManyField(InstructionStep)
     additional_notes = models.TextField(blank=True)
     date_updated = models.DateField(auto_now=True)
     date_created = models.DateField(auto_now_add=True)
