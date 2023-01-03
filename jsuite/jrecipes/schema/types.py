@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from ..models import Recipe, Category, Allergen, NutritionalInfo, InstructionStep, Instruction
+from ..models import Category, Allergen, InstructionStep, Ingredient, IngredientListItem, Recipe
 
 
 class CategoryType(DjangoObjectType):
@@ -29,23 +29,6 @@ class AllergenType(DjangoObjectType):
 class AllergenInput(graphene.InputObjectType):
     type = graphene.String()
 
-
-class NutritionalInfoType(DjangoObjectType):
-    class Meta:
-        model = NutritionalInfo
-        fields = (
-            'id',
-            'quantity',
-            'unit',
-            'calories',
-        )
-
-
-class NutritionalInfoInput(graphene.InputObjectType):
-    quantity = graphene.Int()
-    unit = graphene.Enum.from_enum(NutritionalInfo.UnitType)
-    calories = graphene.Int()
-
 class InstructionStepType(DjangoObjectType):
     class Meta:
         model = InstructionStep
@@ -61,6 +44,7 @@ class InstructionStepInput(graphene.InputObjectType):
     text = graphene.String()
     sub_steps = graphene.Field(lambda: InstructionStepInput)
 
+'''
 class InstructionType(DjangoObjectType):
     class Meta:
         model = Instruction
@@ -71,6 +55,37 @@ class InstructionType(DjangoObjectType):
 
 class InstructionInput(graphene.InputObjectType):
     instruction_steps = graphene.Field(InstructionStepInput)
+
+'''
+
+class IngredientType(DjangoObjectType):
+    class Meta:
+        model = Ingredient
+        fields = (
+            'id',
+            'name',
+            'allergen',
+        )
+
+class IngredientInput(graphene.InputObjectType):
+    name = graphene.String()
+    allergen = graphene.Field(AllergenInput)
+
+
+class IngredientListItemType(DjangoObjectType):
+    class Meta:
+        model = IngredientListItem
+        fields = (
+            'id',
+            'ingredient'
+            'unit',
+            'quantity',
+        )
+
+class IngredientListItemInput(graphene.InputObjectType):
+    ingredient = graphene.Field(IngredientInput)
+    unit = graphene.Enum.from_enum(IngredientListItem.unit)
+    quantity = graphene.Decimal()
 
 class RecipeType(DjangoObjectType):
     class Meta:
@@ -83,12 +98,11 @@ class RecipeType(DjangoObjectType):
             'servings',
             'prep_time',
             'cook_time',
-            'ingredients',
+            'ingredient_list',
             'allergens',
             'instructions',
             'additional_notes',
-            'nutritional_info',
-            'type_enum',
+            'date_updated',
             'date_created',
         )
 
@@ -100,18 +114,7 @@ class RecipeInput(graphene.InputObjectType):
     servings = graphene.Int()
     prep_time = graphene.Int()
     cook_time = graphene.Int()
-    ingredients = graphene.Field(lambda: RecipeInput)
+    ingredient_list = graphene.Field(IngredientListItemInput)
     allergens = graphene.Field(AllergenInput)
-    instructions = graphene.String()  # TODO make instructions object (which contains step objects (one photo + string))
-    type_enum = graphene.Enum.from_enum(Recipe.TypeEnum)
+    instructions = graphene.Field(InstructionStepInput)
     # TODO add thumbnail
-    nutritional_info = graphene.Field(NutritionalInfoInput)
-    
-'''
-TODO add nutritional info **PARTLY  DONE**
-
-portion size (number, unit) [another separate object - many to one]
-calories
-
-everything that is on a label
-''' 

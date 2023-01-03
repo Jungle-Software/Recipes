@@ -54,7 +54,7 @@ class NutritionalInfo(models.Model):
 
 class InstructionStep(models.Model):
     text = models.TextField()
-    #image = models.ImageFIeld(upload_to=None, blank=True) # TODO FIX IMAGES LATER
+    #image = models.ImageField(upload_to=None, blank=True) # TODO FIX IMAGES LATER
     sub_steps = models.ManyToManyField('self', blank=True)
 
     class Meta:
@@ -107,7 +107,7 @@ class Recipe(models.Model):
     servings = models.IntegerField(blank=True, null=True)
     prep_time = models.IntegerField(blank=True, null=True)  # In minutes
     cook_time = models.IntegerField(blank=True, null=True)  # In minutes
-    ingredients = models.ManyToManyField(IngredientListItem, help_text='Select an IngredientListItem for this recipe', blank=True)
+    ingredient_list = models.ManyToManyField(IngredientListItem, help_text='Select an IngredientListItem for this recipe', blank=True)
     allergens = models.ManyToManyField(Allergen, blank=True)
     instructions = models.OneToOneField(InstructionStep, on_delete=models.CASCADE)
     additional_notes = models.TextField(blank=True)
