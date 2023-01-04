@@ -1,16 +1,25 @@
 from django.contrib import admin
 
-from .models import Category
-from .models import Allergen
-from .models import InstructionStep
-from .models import Ingredient
-from .models import IngredientListItem
-from .models import Recipe
+from .models import Category, Allergen, InstructionStep, InstructionSubStep, Ingredient, IngredientListItem, Recipe
+
+class InstructionStepInline(admin.TabularInline):
+    model = InstructionStep
+
+class InstructionSubStepInline(admin.TabularInline):
+    model = InstructionSubStep
+
+class InstructionStepAdmin(admin.ModelAdmin):
+    inlines = [InstructionSubStepInline]
+
+class RecipeAdmin(admin.ModelAdmin):
+    inlines = [InstructionStepInline]
 
 admin.site.register(Category)
 admin.site.register(Allergen)
-admin.site.register(InstructionStep)
+admin.site.register(InstructionStep, InstructionStepAdmin)
+admin.site.register(InstructionSubStep)
 admin.site.register(Ingredient)
 admin.site.register(IngredientListItem)
-admin.site.register(Recipe)
+admin.site.register(Recipe, RecipeAdmin)
+
 

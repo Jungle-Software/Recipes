@@ -21,42 +21,6 @@ class Allergen(models.Model):
         return self.type
 
 
-'''
-class NutritionalInfo(models.Model):
-
-    quantity = models.IntegerField()
-    unit = models.CharField(
-        max_length=20,
-        choices=UnitType.choices,
-    )
-    calories = models.IntegerField()
-
-    def __str__(self):
-        return str(self.quantity) + self.unit + ' per Serving Calories: ' + str(self.calories)
-'''
-
-class InstructionStep(models.Model):
-    text = models.TextField()
-    #image = models.ImageField(upload_to=None, blank=True) # TODO FIX IMAGES LATER
-    sub_steps = models.ManyToManyField('self', blank=True, symmetrical=False)
-
-    class Meta:
-        ordering = ['-id']
-
-    def __str__(self):
-        return self.text
-
-'''
-class Instruction(models.Model):
-    instruction_steps = models.ManyToManyField(InstructionStep)
-
-    class Meta:
-        ordering = ['-id']
-
-    def __str__(self):
-        return "Nothing yet fix this" # TODO
-'''
-
 class Ingredient(models.Model):
     name = models.CharField(max_length=150)
     allergens = models.ManyToManyField(Allergen, blank=True)
@@ -70,7 +34,7 @@ class Ingredient(models.Model):
 class IngredientListItem(models.Model):
 
     class UnitType(models.TextChoices):
-        # TODO add way to do something like 2 Whole banana if the ingredient is a banana for example
+        # TODO maybe move UnitType outside so it can be used elsewhere?
         unit = 'unit', _('un')
         milligram = 'milligram', _('mg')
         gram = 'gram', _('g')
@@ -100,7 +64,6 @@ class IngredientListItem(models.Model):
     def __str__(self):
         return self.ingredient.name
 
-
 class Recipe(models.Model):
 
     title = models.CharField(max_length=150)
@@ -111,7 +74,6 @@ class Recipe(models.Model):
     cook_time = models.IntegerField(blank=True, null=True)  # In minutes
     ingredient_list = models.ManyToManyField(IngredientListItem, help_text='Select an IngredientListItem for this recipe', blank=True)
     allergens = models.ManyToManyField(Allergen, blank=True)
-    instructions = models.ManyToManyField(InstructionStep)
     additional_notes = models.TextField(blank=True)
     date_updated = models.DateField(auto_now=True)
     date_created = models.DateField(auto_now_add=True)
@@ -121,3 +83,50 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+'''
+class NutritionalInfo(models.Model):
+
+    quantity = models.IntegerField()
+    unit = models.CharField(
+        max_length=20,
+        choices=UnitType.choices,
+    )
+    calories = models.IntegerField()
+
+    def __str__(self):
+        return str(self.quantity) + self.unit + ' per Serving Calories: ' + str(self.calories)
+'''
+
+class InstructionStep(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name="steps", on_delete=models.CASCADE)
+    title = models.CharField(max_length=150)
+    text = models.TextField()
+    #image = models.ImageField(upload_to=None, blank=True) # TODO FIX IMAGES LATER
+
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.text
+
+class InstructionSubStep(models.Model):
+    step = models.ForeignKey(InstructionStep, related_name="sub_steps", on_delete=models.CASCADE)
+    text = models.TextField()
+
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.text
+
+'''
+class Instruction(models.Model):
+    instruction_steps = models.ManyToManyField(InstructionStep)
+
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return "Nothing yet fix this" # TODO
+'''
