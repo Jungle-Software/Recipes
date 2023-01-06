@@ -54,6 +54,7 @@ class RecipesTestCase(TestCase):
                       unit
                       quantity
                     }
+                    additionalNotes
                     dateUpdated
                     dateCreated
                 }
