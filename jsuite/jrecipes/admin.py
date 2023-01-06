@@ -11,8 +11,11 @@ class InstructionSubStepInline(admin.TabularInline):
 class InstructionStepAdmin(admin.ModelAdmin):
     inlines = [InstructionSubStepInline]
 
+class IngredientListItemInline(admin.TabularInline):
+    model = IngredientListItem
+
 class RecipeAdmin(admin.ModelAdmin):
-    inlines = [InstructionStepInline]
+    inlines = [InstructionStepInline, IngredientListItemInline]
 
 admin.site.register(Category)
 admin.site.register(Allergen)
