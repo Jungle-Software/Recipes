@@ -9,24 +9,28 @@ export const RECIPE_BY_ID_QUERY = gql`
         recipeById(id: $id) {
             title
             description
-            categories {
+            categories{
                 name
             }
             servings
             prepTime
             cookTime
-            ingredientList{
-                ingredient {
+            instructions{
+                title
+                text
+                subInstructions {
+                    text
+                }
+            }
+            ingredients{
+                ingredient{
                     name
-                    allergens {
+                    allergens{
                         type
                     }
                 }
                 unit
                 quantity
-            }
-            instructions{
-                text
             }
             additionalNotes
             dateUpdated
@@ -63,16 +67,23 @@ const RecipeView = (props: Props) => {
       <br />
       {data.recipeById.cookTime}
       <br />
-        {data.recipeById.ingredientList[0].ingredient.name}
-        <br/>
-        {data.recipeById.ingredientList[0].ingredient.allergens[0].type}
-        <br/>
-        {data.recipeById.ingredientList[0].unit} {/*TEMPORARY FOR TESTING*/}
+
+        {data.recipeById.instructions[0].title}
         <br />
-        {data.recipeById.ingredientList[0].quantity} {/*TEMPORARY FOR TESTING*/}
+        {data.recipeById.instructions[0].text}
         <br />
-      {data.recipeById.instructions[0].text}
-      <br />
+        {data.recipeById.instructions[0].subInstructions[0].text} # TODO FIX CRASH WHEN TEXT IS NULL
+        <br />
+
+        {data.recipeById.ingredients[0].ingredient[0].name}
+        <br/>
+        {data.recipeById.ingredients[0].ingredient[0].allergens[0].type} # TODO FIX CRASH WHEN allergens is null
+        <br/>
+        {data.recipeById.ingredients[0].unit} {/*TEMPORARY FOR TESTING*/}
+        <br />
+        {data.recipeById.ingredients[0].quantity} {/*TEMPORARY FOR TESTING*/}
+        <br />
+
       {data.recipeById.additionalNotes}
       <br />
       {data.recipeById.dateUpdated}
