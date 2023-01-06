@@ -27,30 +27,44 @@ const recipeMock = {
   result: {
     data: {
       recipeById: {
-        id: 1,
         title: "Test Recipe 1",
         description: "testerino",
         categories: [
-            {
-                name: "CategoryName1"
-            }
+          {
+            name : "CategoryName1"
+          }
         ],
-        portionSize: 0,
+        servings: 0,
         prepTime: 0,
         cookTime: 0,
         ingredients: [
-            {
+          {
+            ingredient: [
+              {
                 name: "IngredientName1",
                 allergens: [
-                    {
-                        type: "AllergenType1"
-                    }
-                ]
-            }
+                  {
+                    type: "IngredientAllergenType1"
+                  }
+                ],
+              }
+            ],
+            quantity: "0",
+            unit: "MILLILITER",
+          }
         ],
-        instructions: "",
+        instructions: [
+          {
+            subInstructions: [
+              {
+                text: "SubInstruction1"
+              }
+            ],
+            text: "Instruction1"
+          }
+        ],
         additionalNotes: "",
-        nutritionalInfo: "",
+        dateUpdated: "",
         dateCreated: "",
       },
     },
