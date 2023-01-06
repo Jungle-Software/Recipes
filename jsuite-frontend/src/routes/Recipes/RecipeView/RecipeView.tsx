@@ -53,43 +53,73 @@ const RecipeView = (props: Props) => {
   if (loading) return <LoadingMessage />;
   if (error) return <DevError message={error.message}/>;
 
+
+    const instructions = data.recipeById.instructions.map((instruction:any, i:any) => { {/* TODO CHANGE ANY FOR A BETTER TYPE */}
+        const subInstructions = instruction.subInstructions.map((subInstruction:any, j:any) => {
+            return <div id={subInstruction.id}>
+                {i+1}.{j+1}. {subInstruction.text}
+            </div>
+        })
+        return <div id={instruction.id}>
+            {i+1}. {instruction.title} {instruction.text} <br />
+            <p style={{paddingLeft:"1em"}}>{subInstructions}</p>
+        </div>
+    })
+
+    const ingredients = data.recipeById.ingredients.map((ingredientItem:any) => {
+        const allergens = ingredientItem.ingredient[0].allergens.map((allergen:any) => {
+            return allergen.type
+        })
+
+        return <div id={ingredientItem.id}>
+            {ingredientItem.quantity} {ingredientItem.unit} {ingredientItem.ingredient[0].name} {allergens}
+        </div>
+    })
+
+    const categories = data.recipeById.categories.map((category:any) => {
+        return category.name+", "
+    })
+
   return (
-    <View id="recipe-view">
-      {data.recipeById.title}
-      <br />
-      {data.recipeById.description}
-      <br />
-      {data.recipeById.categories[0].name} {/*TEMPORARY FOR TESTING*/}
-      <br />
-      {data.recipeById.servings}
-      <br />
-      {data.recipeById.prepTime}
-      <br />
-      {data.recipeById.cookTime}
-      <br />
+      <View id="recipe-view">
+          {data.recipeById.title}
+          <br />
+          <br />
 
-        {data.recipeById.instructions[0].title}
-        <br />
-        {data.recipeById.instructions[0].text}
-        <br />
-        {data.recipeById.instructions[0].subInstructions[0].text} # TODO FIX CRASH WHEN TEXT IS NULL
-        <br />
+          <div className="Informations">
+              Description: {data.recipeById.description} <br />
+              Categories: {categories} <br />
+              Servings: {data.recipeById.servings}  <br />
+              Preparation time: {data.recipeById.prepTime} minutes <br />
+              Cooking time: {data.recipeById.cookTime} minutes <br />
+          </div>
 
-        {data.recipeById.ingredients[0].ingredient[0].name}
-        <br/>
-        {data.recipeById.ingredients[0].ingredient[0].allergens[0].type} # TODO FIX CRASH WHEN allergens is null
-        <br/>
-        {data.recipeById.ingredients[0].unit} {/*TEMPORARY FOR TESTING*/}
-        <br />
-        {data.recipeById.ingredients[0].quantity} {/*TEMPORARY FOR TESTING*/}
-        <br />
+          <br/>
 
-      {data.recipeById.additionalNotes}
-      <br />
-      {data.recipeById.dateUpdated}
-      <br />
-      {data.recipeById.dateCreated}
-    </View>
+          <div className="Ingredients">
+              Ingredients: <br />
+              <div style={{paddingLeft:"1em"}}>
+                  {ingredients}
+              </div>
+          </div>
+
+          <br/>
+
+          <div className="Instructions">
+              Instructions: <br />
+              <div style={{paddingLeft:"1em"}}>
+                  {instructions}
+              </div>
+          </div>
+
+          <br/>
+          <div className="ExtraInformation">
+              Additional Notes: {data.recipeById.additionalNotes} <br />
+              Date last updated: {data.recipeById.dateUpdated} <br />
+              Date created: {data.recipeById.dateCreated} <br/>
+          </div>
+
+        </View>
   );
 };
 
