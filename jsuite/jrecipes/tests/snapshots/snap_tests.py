@@ -31,7 +31,6 @@ snapshots['RecipesTestCase::test_delete_recipe 1'] = {
 snapshots['RecipesTestCase::test_recipe_by_id 1'] = {
     'data': {
         'recipeById': {
-            'additionalNotes': 'Pretty tasty',
             'categories': [
                 {
                     'name': 'CategoryTest1'
@@ -41,26 +40,33 @@ snapshots['RecipesTestCase::test_recipe_by_id 1'] = {
             'dateCreated': '2022-05-05',
             'dateUpdated': '2022-05-05',
             'description': 'My first test!',
-            'ingredientList': [
+            'ingredients': [
                 {
-                    'ingredient': {
-                        'allergens': [
-                            {
-                                'type': 'AllergenTypeTest1'
-                            }
-                        ],
-                        'name': 'IngredientNameTest1'
-                    }
+                    'ingredient': [
+                        {
+                            'allergens': [
+                                {
+                                    'type': 'AllergenTypeTest1'
+                                }
+                            ],
+                            'name': 'IngredientNameTest1'
+                        }
+                    ],
+                    'quantity': '300.0000',
+                    'unit': 'GRAM'
                 }
             ],
-            'instructions': {
-                'subSteps': [
-                    {
-                        'text': 'SubInstructionStepTest1'
-                    }
-                ],
-                'text': 'InstructionStepTest1'
-            },
+            'instructions': [
+                {
+                    'subInstructions': [
+                        {
+                            'text': 'InstructionSubStepTest1'
+                        }
+                    ],
+                    'text': 'InstructionStepTest1',
+                    'title': 'TitleTest1'
+                }
+            ],
             'prepTime': 20,
             'servings': 4,
             'title': 'Test1'

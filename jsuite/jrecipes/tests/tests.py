@@ -32,26 +32,28 @@ class RecipesTestCase(TestCase):
                     title
                     description
                     categories{
-                        name
+                      name
                     }
                     servings
                     prepTime
                     cookTime
-                    ingredientList{
-                        ingredient{
-                            name
-                            allergens{
-                                type
-                            }
-                        }
-                    }
                     instructions{
+                      title
+                      text
+                      subInstructions {
                         text
-                        subSteps{
-                            text
-                        }
+                      }
                     }
-                    additionalNotes
+                    ingredients{
+                      ingredient{
+                        name
+                        allergens{
+                            type
+                        }
+                      }
+                      unit
+                      quantity
+                    }
                     dateUpdated
                     dateCreated
                 }
