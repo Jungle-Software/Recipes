@@ -1,9 +1,11 @@
 import graphene
 
-from jrecipes.models import Category, Allergen, InstructionStep, Ingredient, IngredientListItem, Recipe
-from jrecipes.schema.types import CategoryInput, CategoryType, AllergenInput, AllergenType, InstructionStepInput, InstructionStepType, IngredientInput, IngredientType, IngredientListItemInput, IngredientListItemType, RecipeInput, RecipeType
+from jrecipes.models import Category, Allergen, InstructionStep, InstructionSubStep, Ingredient, IngredientListItem, Recipe
+from jrecipes.schema.types import CategoryInput, CategoryType, AllergenInput, AllergenType, InstructionStepInput, InstructionStepType, InstructionSubStepInput, InstructionSubStepType, IngredientInput, IngredientType, IngredientListItemInput, IngredientListItemType, RecipeInput, RecipeType
 
-
+#################################################
+#               Category
+#################################################
 class CreateCategory(graphene.Mutation):
     class Arguments:
         input = CategoryInput(required=True)
@@ -45,6 +47,9 @@ class DeleteCategory(graphene.Mutation):
         category.delete()
         return
 
+#################################################
+#               Allergen
+#################################################
 class CreateAllergen(graphene.Mutation):
     class Arguments:
         input = AllergenInput(required=True)
@@ -86,6 +91,10 @@ class DeleteAllergen(graphene.Mutation):
         allergen.delete()
         return
 
+
+#################################################
+#               InstructionStep
+#################################################
 class CreateInstructionStep(graphene.Mutation):
     class Arguments:
         input = InstructionStepInput(required=True)
@@ -95,8 +104,10 @@ class CreateInstructionStep(graphene.Mutation):
     @classmethod
     def mutate(cls, root, info, input):
         instruction_step = InstructionStep()
+        instruction_step.recipe = input.recipe
+        instruction_step.sub_instructions = input.sub_instructions
+        instruction_step.title = input.title
         instruction_step.text = input.text
-        instruction_step.sub_steps = input.sub_steps
 
         instruction_step.save()
         return CreateInstructionStep(instruction_step=instruction_step)
@@ -111,8 +122,11 @@ class UpdateInstructionStep(graphene.Mutation):
     @classmethod
     def mutate(cls, root, info, input, id):
         instruction_step = InstructionStep.objects.get(pk=id)
+        instruction_step.recipe = input.recipe
+        instruction_step.sub_instructions = input.sub_instructions
+        instruction_step.title = input.title
         instruction_step.text = input.text
-        instruction_step.sub_steps = input.sub_steps
+
         instruction_step.save()
         return UpdateInstructionStep(instruction_step=instruction_step)
 
@@ -128,6 +142,56 @@ class DeleteInstructionStep(graphene.Mutation):
         instruction_step.delete()
         return
 
+
+#################################################
+#               InstructionSubStep
+#################################################
+class CreateInstructionSubStep(graphene.Mutation):
+    class Arguments:
+        input = InstructionSubStepInput(required=True)
+
+    instruction_sub_step = graphene.Field(InstructionSubStepType)
+
+    @classmethod
+    def mutate(cls, root, info, input):
+        instruction_sub_step = InstructionSubStep()
+        instruction_sub_step.step = input.step
+        instruction_sub_step.text = input.text
+
+        instruction_sub_step.save()
+        return CreateInstructionSubStep(instruction_sub_step=instruction_sub_step)
+
+class UpdateInstructionSubStep(graphene.Mutation):
+    class Arguments:
+        input = InstructionSubStepInput(required=True)
+        id = graphene.ID()
+
+    instruction_sub_step = graphene.Field(InstructionSubStepType)
+
+    @classmethod
+    def mutate(cls, root, info, input, id):
+        instruction_sub_step = InstructionSubStep.objects.get(pk=id)
+        instruction_sub_step.step = input.step
+        instruction_sub_step.text = input.text
+
+        instruction_sub_step.save()
+        return UpdateInstructionSubStep(instruction_sub_step=instruction_sub_step)
+
+class DeleteInstructionSubStep(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID()
+
+    instruction_sub_step = graphene.Field(InstructionSubStepType)
+
+    @classmethod
+    def mutate(cls, root, info, id):
+        instruction_sub_step = InstructionSubStep.objects.get(pk=id)
+        instruction_sub_step.delete()
+        return
+
+#################################################
+#               Ingredient
+#################################################
 class CreateIngredient(graphene.Mutation):
     class Arguments:
         input = IngredientInput(required=True)
@@ -170,6 +234,10 @@ class DeleteIngredient(graphene.Mutation):
         ingredient.delete()
         return
 
+
+#################################################
+#               IngredientListItem
+#################################################
 class CreateIngredientListItem(graphene.Mutation):
     class Arguments:
         input = IngredientListItemInput(required=True)
@@ -179,6 +247,7 @@ class CreateIngredientListItem(graphene.Mutation):
     @classmethod
     def mutate(cls, root, info, input):
         ingredient_list_item = IngredientListItem()
+        ingredient_list_item.recipe = input.recipe
         ingredient_list_item.ingredient = input.ingredient
         ingredient_list_item.unit = input.unit
         ingredient_list_item.quantity = input.quantity
@@ -196,6 +265,7 @@ class UpdateIngredientListItem(graphene.Mutation):
     @classmethod
     def mutate(cls, root, info, input, id):
         ingredient_list_item = IngredientListItem.objects.get(pk=id)
+        ingredient_list_item.recipe = input.recipe
         ingredient_list_item.ingredient = input.ingredient
         ingredient_list_item.unit = input.unit
         ingredient_list_item.quantity = input.quantity
@@ -214,6 +284,10 @@ class DeleteIngredientListItem(graphene.Mutation):
         ingredient_list_item.delete()
         return
 
+
+#################################################
+#                 Recipe
+#################################################
 class CreateRecipe(graphene.Mutation):
     class Arguments:
         input = RecipeInput(required=True)
@@ -229,9 +303,9 @@ class CreateRecipe(graphene.Mutation):
         recipe.servings = input.servings
         recipe.prep_time = input.prep_time
         recipe.cook_time = input.cook_time
-        recipe.ingredient_list = input.ingredient_list
         recipe.allergens = input.allergens
         recipe.instructions = input.instructions
+        recipe.ingredients = input.ingredients
         recipe.additional_notes = input.additional_notes
 
         recipe.save()
@@ -245,7 +319,6 @@ class UpdateRecipe(graphene.Mutation):
 
     recipe = graphene.Field(RecipeType)
 
-
     @classmethod
     def mutate(cls, root, info, input, id):
         recipe = Recipe.objects.get(pk=id)
@@ -255,10 +328,11 @@ class UpdateRecipe(graphene.Mutation):
         recipe.servings = input.servings
         recipe.prep_time = input.prep_time
         recipe.cook_time = input.cook_time
-        recipe.ingredient_list = input.ingredient_list
         recipe.allergens = input.allergens
         recipe.instructions = input.instructions
+        recipe.ingredients = input.ingredients
         recipe.additional_notes = input.additional_notes
+
         recipe.save()
         return UpdateRecipe(recipe=recipe)
 
@@ -274,6 +348,7 @@ class DeleteRecipe(graphene.Mutation):
         recipe.delete()
         return
 
+
 class Mutation(graphene.ObjectType):
     create_category = CreateCategory.Field()
     update_category = UpdateCategory.Field()
@@ -286,6 +361,10 @@ class Mutation(graphene.ObjectType):
     create_instruction_step = CreateInstructionStep.Field()
     update_instruction_step = UpdateInstructionStep.Field()
     delete_instruction_step = DeleteInstructionStep.Field()
+
+    create_instruction_sub_step = CreateInstructionSubStep.Field()
+    update_instruction_sub_step = UpdateInstructionSubStep.Field()
+    delete_instruction_sub_step = DeleteInstructionSubStep.Field()
 
     create_ingredient = CreateIngredient.Field()
     update_ingredient = UpdateIngredient.Field()
