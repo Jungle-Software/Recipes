@@ -34,7 +34,6 @@ class InstructionStep(models.Model):
         return self.text
 
 class InstructionSubStep(models.Model):
-    # TODO TEST STRING FIELD NAME
     step = models.ForeignKey("InstructionStep", related_name="sub_steps", on_delete=models.CASCADE)
     text = models.TextField()
     # TODO ADD ORDERFIELD INT !!! V2 !!!
@@ -56,7 +55,6 @@ class Ingredient(models.Model):
         return self.name
 
 class UnitType(models.TextChoices):
-    # TODO maybe move UnitType outside so it can be used elsewhere?
     unit = 'unit', _('un')
     milligram = 'milligram', _('mg')
     gram = 'gram', _('g')
