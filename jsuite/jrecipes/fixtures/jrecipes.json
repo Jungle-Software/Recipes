@@ -1,0 +1,113 @@
+[
+  {
+    "model": "jrecipes.category",
+    "pk": 1,
+    "fields": {
+      "name": "Vegan"
+    }
+  },
+  {
+    "model": "jrecipes.category",
+    "pk": 2,
+    "fields": {
+      "name": "Asian"
+    }
+  },
+  {
+    "model": "jrecipes.allergen",
+    "pk": 1,
+    "fields": {
+      "type": "Test Allergen 1"
+    }
+  },
+  {
+    "model": "jrecipes.instructionstep",
+    "pk": 1,
+    "fields": {
+      "recipe": 1,
+      "title": "First Step",
+      "text": "In this step, we will perform all the following substeps"
+    }
+  },
+  {
+    "model": "jrecipes.instructionstep",
+    "pk": 2,
+    "fields": {
+      "recipe": 1,
+      "title": "Second Step",
+      "text": "This step has no substeps"
+    }
+  },
+  {
+    "model": "jrecipes.instructionsubstep",
+    "pk": 1,
+    "fields": {
+      "step": 1,
+      "text": "Substep 1 is to read this substep."
+    }
+  },
+  {
+    "model": "jrecipes.instructionsubstep",
+    "pk": 2,
+    "fields": {
+      "step": 1,
+      "text": "Substep 2 is to inevitably skip this substep and hope no error was thrown in testing."
+    }
+  },
+  {
+    "model": "jrecipes.ingredient",
+    "pk": 1,
+    "fields": {
+      "name": "Test Ingredient 1",
+      "allergens": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "jrecipes.ingredient",
+    "pk": 2,
+    "fields": {
+      "name": "Test Ingredient 2",
+      "allergens": []
+    }
+  },
+  {
+    "model": "jrecipes.ingredientlistitem",
+    "pk": 1,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 1,
+      "unit": "unit",
+      "quantity": "3.0000"
+    }
+  },
+  {
+    "model": "jrecipes.ingredientlistitem",
+    "pk": 2,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 2,
+      "unit": "cup",
+      "quantity": "1.5000"
+    }
+  },
+  {
+    "model": "jrecipes.recipe",
+    "pk": 1,
+    "fields": {
+      "title": "Test Recipe 1",
+      "description": "This is the first recipe used for testing.",
+      "servings": 1,
+      "prep_time": 2,
+      "cook_time": 3,
+      "additional_notes": "",
+      "date_updated": "2023-01-11",
+      "date_created": "2023-01-11",
+      "categories": [
+        1
+      ],
+      "allergens": []
+    }
+  }
+]
