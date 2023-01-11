@@ -36,10 +36,13 @@ describe('recipe page', () => {
           .invoke('text')
           .should('contain', "Cypress UNIVERSAL Recipe")
           .should('contain', "This is for Cypress e2e tests~")
+          ///Need to add Categories
           .should('contain', "4")
           .should('contain', "20")
           .should('contain', "40")
-          .should('contain', "This will change when Guigui changes the schema")
+          .should('contain', "IngredientName1")
+          ///Need to add allergens
+
           .should('contain', "Unclear")
           .should('contain', "None")
           .should('contain', "Absolutely none")

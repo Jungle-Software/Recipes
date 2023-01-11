@@ -3,3 +3,6 @@ jsuite/db.sqlite3
 jsuite/.coverage
 __pycache__/
 data/db/
+/jsuite/jrecipes/schema/.graphqlconfig
+/jsuite/jrecipes/schema/schema.graphql
+/jsuite/jsuite.iml
