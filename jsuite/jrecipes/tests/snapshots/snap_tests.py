@@ -16,7 +16,7 @@ snapshots['RecipesTestCase::test_all_recipes 1'] = {
             },
             {
                 'id': '2',
-                'title': 'Testerino 2'
+                'title': 'Test2'
             }
         ]
     }
@@ -32,14 +32,44 @@ snapshots['RecipesTestCase::test_recipe_by_id 1'] = {
     'data': {
         'recipeById': {
             'additionalNotes': 'Pretty tasty',
+            'categories': [
+                {
+                    'name': 'CategoryTest1'
+                }
+            ],
             'cookTime': 40,
             'dateCreated': '2022-05-05',
+            'dateUpdated': '2022-05-05',
             'description': 'My first test!',
-            'ingredients': 'This will be changed!!',
-            'instructions': 'Do this, then that.',
-            'nutritionalInfo': 'Pretty healthy',
-            'portionSize': 4,
+            'ingredients': [
+                {
+                    'ingredient': [
+                        {
+                            'allergens': [
+                                {
+                                    'type': 'AllergenTypeTest1'
+                                }
+                            ],
+                            'name': 'IngredientNameTest1'
+                        }
+                    ],
+                    'quantity': '300.0000',
+                    'unit': 'GRAM'
+                }
+            ],
+            'instructions': [
+                {
+                    'subInstructions': [
+                        {
+                            'text': 'InstructionSubStepTest1'
+                        }
+                    ],
+                    'text': 'InstructionStepTest1',
+                    'title': 'TitleTest1'
+                }
+            ],
             'prepTime': 20,
+            'servings': 4,
             'title': 'Test1'
         }
     }
