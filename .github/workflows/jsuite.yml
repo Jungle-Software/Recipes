@@ -61,11 +61,7 @@ jobs:
       run: |
         cd jsuite
         python manage.py migrate
-
-    - name: Run database seeding
-      run: |
-        cd jsuite
-        python manage.py loaddata jrecipes/seed/recipes.json
+        python manage.py loaddata **/fixtures/*.json
 
     - name: Actually run the backend lmao?!
       run: |
