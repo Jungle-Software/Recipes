@@ -1,0 +1,231 @@
+[
+  {
+    "model": "jrecipes.category",
+    "pk": 1,
+    "fields": {
+      "name": "Dessert"
+    }
+  },
+  {
+    "model": "jrecipes.allergen",
+    "pk": 1,
+    "fields": {
+      "type": "Eggs"
+    }
+  },
+  {
+    "model": "jrecipes.allergen",
+    "pk": 2,
+    "fields": {
+      "type": "Dairy"
+    }
+  },
+  {
+    "model": "jrecipes.instructionstep",
+    "pk": 1,
+    "fields": {
+      "recipe": 1,
+      "title": "Prepare Mixture",
+      "text": ""
+    }
+  },
+  {
+    "model": "jrecipes.instructionstep",
+    "pk": 2,
+    "fields": {
+      "recipe": 1,
+      "title": "Bake!",
+      "text": ""
+    }
+  },
+  {
+    "model": "jrecipes.instructionsubstep",
+    "pk": 1,
+    "fields": {
+      "step": 1,
+      "text": "Melt butter in a large bowl."
+    }
+  },
+  {
+    "model": "jrecipes.instructionsubstep",
+    "pk": 2,
+    "fields": {
+      "step": 1,
+      "text": "Mix cocoa, sugar, eggs, vanilla, flour, and salt with the melted butter"
+    }
+  },
+  {
+    "model": "jrecipes.instructionsubstep",
+    "pk": 3,
+    "fields": {
+      "step": 2,
+      "text": "Grease 8\" square pan."
+    }
+  },
+  {
+    "model": "jrecipes.instructionsubstep",
+    "pk": 4,
+    "fields": {
+      "step": 2,
+      "text": "Spread brownie mixture into the pan."
+    }
+  },
+  {
+    "model": "jrecipes.instructionsubstep",
+    "pk": 5,
+    "fields": {
+      "step": 2,
+      "text": "Bake at 350deg for 20-25 mins."
+    }
+  },
+  {
+    "model": "jrecipes.ingredient",
+    "pk": 1,
+    "fields": {
+      "name": "Butter",
+      "allergens": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "jrecipes.ingredient",
+    "pk": 2,
+    "fields": {
+      "name": "Cocoa",
+      "allergens": []
+    }
+  },
+  {
+    "model": "jrecipes.ingredient",
+    "pk": 3,
+    "fields": {
+      "name": "Granulated Sugar",
+      "allergens": []
+    }
+  },
+  {
+    "model": "jrecipes.ingredient",
+    "pk": 4,
+    "fields": {
+      "name": "Eggs",
+      "allergens": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "jrecipes.ingredient",
+    "pk": 5,
+    "fields": {
+      "name": "Vanilla",
+      "allergens": []
+    }
+  },
+  {
+    "model": "jrecipes.ingredient",
+    "pk": 6,
+    "fields": {
+      "name": "Flour",
+      "allergens": []
+    }
+  },
+  {
+    "model": "jrecipes.ingredient",
+    "pk": 7,
+    "fields": {
+      "name": "Salt",
+      "allergens": []
+    }
+  },
+  {
+    "model": "jrecipes.ingredientlistitem",
+    "pk": 1,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 1,
+      "unit": "cup",
+      "quantity": "0.5000"
+    }
+  },
+  {
+    "model": "jrecipes.ingredientlistitem",
+    "pk": 2,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 2,
+      "unit": "cup",
+      "quantity": "0.5000"
+    }
+  },
+  {
+    "model": "jrecipes.ingredientlistitem",
+    "pk": 3,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 3,
+      "unit": "cup",
+      "quantity": "1.0000"
+    }
+  },
+  {
+    "model": "jrecipes.ingredientlistitem",
+    "pk": 4,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 4,
+      "unit": "unit",
+      "quantity": "2.0000"
+    }
+  },
+  {
+    "model": "jrecipes.ingredientlistitem",
+    "pk": 5,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 5,
+      "unit": "teaspoon",
+      "quantity": "0.5000"
+    }
+  },
+  {
+    "model": "jrecipes.ingredientlistitem",
+    "pk": 6,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 6,
+      "unit": "cup",
+      "quantity": "0.5000"
+    }
+  },
+  {
+    "model": "jrecipes.ingredientlistitem",
+    "pk": 7,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 7,
+      "unit": "teaspoon",
+      "quantity": "0.2500"
+    }
+  },
+  {
+    "model": "jrecipes.recipe",
+    "pk": 1,
+    "fields": {
+      "title": "The Best Brownies in the World",
+      "description": "Dense, fudgy brownies. Most people love them, those who don't are wrong.",
+      "servings": 16,
+      "prep_time": 20,
+      "cook_time": 25,
+      "additional_notes": "Do yourself a favor and double the recipe, because a single batch just simply isn't enough.",
+      "date_updated": "2023-01-12",
+      "date_created": "2023-01-12",
+      "categories": [
+        1
+      ],
+      "allergens": [
+        1
+      ]
+    }
+  }
+]
