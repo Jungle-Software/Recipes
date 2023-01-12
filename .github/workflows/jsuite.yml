@@ -20,8 +20,7 @@ env:
   REACT_APP_RECIPES_URI: ${{secrets.REACT_APP_RECIPES_URI}}
 
 jobs:
-  build:
-
+  tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -41,13 +40,15 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-
+    # Setup start
     - uses: actions/checkout@v3
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
+        
+    - name: Install project dependencies
       run: |
         python -m pip install --upgrade pip
         cd jsuite
@@ -56,18 +57,17 @@ jobs:
     - name: Replace force_text
       run: sed -i 's/force_text/force_str/g' "$LD_LIBRARY_PATH/python3.9/site-packages/graphene_django/utils/utils.py"
 
-    - name: Run migrations
+    - name: Run database migrations
       run: |
         cd jsuite
         python manage.py migrate
+        python manage.py loaddata **/fixtures/*.json
 
-    - name: Run backend test with coverage
+    - name: Run backend persistently
       run: |
         cd jsuite
-        coverage run --source='.' manage.py test
-        coverage report
+        python manage.py runserver 8080 &
 
-    - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -76,6 +76,13 @@ jobs:
         cache-dependency-path: jsuite-frontend/package-lock.json
       env:
         REACT_APP_RECIPES_URI: ${{ env.REACT_APP_RECIPES_URI }}
+    # Setup end
+    
+    - name: Run backend tests with coverage
+      run: |
+        cd jsuite
+        coverage run --source='.' manage.py test
+        coverage report
 
     - name: Run React component tests & test coverage
       run: |
@@ -89,3 +96,4 @@ jobs:
       with:
         working-directory: ./jsuite-frontend
         start: npm start
+

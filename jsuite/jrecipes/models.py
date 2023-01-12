@@ -31,7 +31,7 @@ class InstructionStep(models.Model):
         ordering = ['id']
 
     def __str__(self):
-        return self.text
+        return self.title
 
 class InstructionSubStep(models.Model):
     step = models.ForeignKey("InstructionStep", related_name="sub_steps", on_delete=models.CASCADE)
