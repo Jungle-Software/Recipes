@@ -18,12 +18,15 @@ describe('recipe page', () => {
         cy.get('[id=selector-button-1]').click()
         cy.get('[id=recipe-view]')
           .invoke('text')
-          .should('contain', "Mock Recipe")
-          .should('contain', "This is for Cypress e2e tests~ Honestly, this should become actual recipes and we can put it for dev seeding AND testing")
+          .should('contain', "Cypress UNIVERSAL Recipe")
+          .should('contain', "This is for Cypress e2e tests~")
+          ///Need to add Categories
           .should('contain', "4")
           .should('contain', "20")
           .should('contain', "40")
-          .should('contain', "This will change when Guigui changes the schema")
+          .should('contain', "IngredientName1")
+          ///Need to add allergens
+
           .should('contain', "Unclear")
           .should('contain', "None")
           .should('contain', "Absolutely none")

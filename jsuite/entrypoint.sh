@@ -14,5 +14,6 @@ fi
 sed -i 's/force_text/force_str/g' '/usr/local/lib/python3.9/site-packages/graphene_django/utils/utils.py'
 #python manage.py flush --no-input
 python manage.py migrate
+python manage.py loaddata **/fixtures/*.json
 
 exec "$@"
